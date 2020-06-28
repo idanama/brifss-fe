@@ -1,0 +1,110 @@
+@import url("https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=Playfair+Display&display=swap");
+@import "/reset.css";
+
+
+$primary: hsl(0, 0%, 4%);
+$primaryLight: hsl(0, 0%, 7%);
+$primaryLighter: hsl(0, 0%, 14%);
+$primaryLightest: hsl(0, 0%, 28%);
+$primaryText: #DFDFF1;
+$primaryTextDark: hsl(0, 0%, 80%);
+$primaryTextDarker: hsl(0, 0%, 60%);
+$background: #FAFAFA;
+$backgroundLight: #fff;
+
+$text: #151515;
+
+.logo-type {
+    font-family: 'DM Serif Display', serif;
+}
+
+.is-invert {
+    filter: invert(100%);
+}
+
+body {
+    font-size: 1rem;
+    // line-height: 1.5rem;
+    color: $text;
+    background-color: $background;
+
+    margin: 0;
+    padding: 0;
+    // font-family: 'Playfair Display', serif;
+    font-family: BlinkMacSystemFont, -apple-system, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", "Helvetica", "Arial", sans-serif
+}
+
+.icon-inline {
+    display: inline-block;
+    align-self: center;
+    height: 1em;
+    width: 1em;
+    top: 0.125em;
+    position: relative;
+}
+
+.button {
+    // font-family: 'Playfair Display', serif;
+    border-radius: 2px;
+    background-color: $backgroundLight;
+    color: $text;
+    cursor: pointer;
+    padding-bottom: calc(.5em-1px);
+    padding-top: calc(.5em-1px);
+    padding-left: 1rem;
+    padding-right: 1rem;
+    margin-left: 0.5rem;
+    margin-right: 0.5rem;
+    border-color: $primaryText;
+    border-width: 1px;
+    box-shadow: none;
+    // display: inline-flex;
+    height: 2.5rem;
+    border: 1px solid $primaryText;
+    justify-content: center;
+    text-align: center;
+    white-space: nowrap;
+
+    &.is-circle {
+        height: 3rem;
+        width: 3rem;
+        border-radius: 50%;
+        border-radius: 50%;
+        display: inline-block;
+        display: flex;
+        justify-content: space-around;
+        text-align: center;
+        align-items: center;
+        overflow: hidden;
+        padding: 0;
+    }
+
+    &:hover {
+        border: 1px solid $primary;
+        box-shadow: 0 0 0 .15em rgba(114, 114, 114, 0.25);
+    }
+
+    &:active {
+        border: 1px solid $primaryTextDarker;
+        // background-color: $primary;
+        // color: $primaryText
+    }
+
+    &.is-primary {
+        border-color: $primaryText;
+        background-color: $primary;
+        color: $primaryText;
+
+        &:hover {
+            border: 1px solid $primaryTextDarker;
+            box-shadow: 0 0 0 .15em rgba(0, 0, 0, 0.5);
+        }
+
+        &:active {
+            border: 1px solid $primaryLightest;
+            // background-color: $primary;
+            // color: $primaryText
+        }
+    }
+
+}
