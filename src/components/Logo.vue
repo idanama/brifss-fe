@@ -1,12 +1,14 @@
 <template>
-  <div class="logo-type">
+  <div>
     <div v-if="fixed" class="logo-spacer" :class="{'logo-large':large}">
-      <span>Brifss</span>
+      <span class="logo-type">Brifss</span>
       <img src="@/assets/logo.svg" class="svg-logo" />
+      <div v-if="large" class="logo-subtitle">The tldr news aggregator.</div>
     </div>
-    <div :class="{'logo-fixed' : fixed , 'logo-large':large}">
-      <span>Brifss</span>
+    <div :class="{'logo-fixed' : fixed, 'logo-large':large}">
+      <span class="logo-type">Brifss</span>
       <img src="@/assets/logo.svg" class="svg-logo" />
+      <div v-if="large" class="logo-subtitle">The tldr news aggregator.</div>
     </div>
   </div>
 </template>
@@ -16,11 +18,12 @@
   align-self: center;
   height: 0.9em;
   width: 0.9em;
-  top: 0.2em;
+  /* top: 0.11em; */
   position: relative;
 }
 .logo-fixed {
   z-index: 10;
+  /* display: flex; */
   position: fixed;
   top: 0px;
   left: 0px;
@@ -29,12 +32,20 @@
 }
 .logo-spacer {
   visibility: hidden;
+  /* display: flex; */
+
   padding: 0.25rem;
   transition-duration: 0.3s;
 }
 .logo-large {
   font-size: 4rem;
   padding: 1rem;
+}
+.logo-type {
+  /* line-height: 1; */
+}
+.logo-subtitle {
+  font-size: 1rem;
 }
 </style>
 

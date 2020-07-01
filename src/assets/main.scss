@@ -1,5 +1,5 @@
+@import "@/assets/reset";
 @import url("https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=Playfair+Display&display=swap");
-@import "/reset.css";
 
 
 $primary: hsl(0, 0%, 4%);
@@ -22,9 +22,33 @@ $text: #151515;
     filter: invert(100%);
 }
 
+
+a {
+    color: $primary;
+    text-decoration: none;
+}
+
+a:visited {
+    color: $primaryLighter;
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration-color: $primary;
+    text-decoration: underline;
+}
+
+a:active {
+    color: $primaryLightest;
+    text-decoration: none;
+}
+
 body {
+    // overflow-x: hidden;
+    // overflow-y: hidden;
+    overflow-y: scroll;
     font-size: 1rem;
-    // line-height: 1.5rem;
+    line-height: 1.5em;
     color: $text;
     background-color: $background;
 
@@ -39,12 +63,21 @@ body {
     align-self: center;
     height: 1em;
     width: 1em;
-    top: 0.125em;
+    margin-left: 0.3rem;
+    margin-right: 0.3rem;
     position: relative;
 }
 
+
 .button {
     // font-family: 'Playfair Display', serif;
+    display: inline-block;
+    display: flex;
+    justify-content: space-around;
+    text-align: center;
+    align-items: center;
+
+
     border-radius: 2px;
     background-color: $backgroundLight;
     color: $text;
@@ -64,6 +97,17 @@ body {
     justify-content: center;
     text-align: center;
     white-space: nowrap;
+
+    &.is-icon {
+        height: 2rem;
+        width: 2rem;
+        display: inline-block;
+        display: flex;
+        justify-content: space-around;
+        text-align: center;
+        align-items: center;
+        overflow: hidden;
+    }
 
     &.is-circle {
         height: 3rem;

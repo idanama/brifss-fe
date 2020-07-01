@@ -1,13 +1,13 @@
 <template>
   <transition name="slide">
     <nav role="navigation" class="bottom-nav" aria-label="main navigation">
-      <div class="nav-item">
+      <div class="nav-item" @click="$emit('tab','feed')">
         <img src="@/assets/logo.svg" class="svg-icon" />
       </div>
-      <div class="nav-item">
+      <div class="nav-item" @click="$emit('tab','config')">
         <img src="@/assets/icons/more-vertical.svg" class="svg-icon" />
       </div>
-      <div class="nav-action">
+      <div class="nav-action" @click="$emit('tab','read')">
         <transition class="nav-action" name="bounce">
           <div class="button is-primary is-circle">
             <img src="@/assets/icons/book-open.svg" class="svg-icon is-invert" />
@@ -20,7 +20,10 @@
 
 <script>
 export default {
-  name: "Navbar"
+  name: "Navbar",
+  props: {
+    tab: { type: String }
+  }
 };
 </script>
 
@@ -56,7 +59,7 @@ export default {
 
 .bottom-nav {
   z-index: 30;
-
+  height: 2.8rem;
   position: fixed;
   bottom: 0;
   width: 100%;
@@ -78,6 +81,7 @@ export default {
 
 .nav-item {
   padding: 0.6rem;
+  cursor: pointer;
 }
 
 .nav-action {

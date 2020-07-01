@@ -11,17 +11,17 @@
     class="card"
     v-on:click.prevent="tapCard()"
   >
-    <div class="card-swipe" v-if="swipeDirection!==''" :class="swipeStyle">
-      <div class="swipe-action-tip" :class="{'is-hidden' : swipeDirection !== 'down'}">
+    <div class="card-swipe" :class="swipeStyle">
+      <div class="swipe-action-tip" v-if="swipeDirection === 'down'">
         <img src="@/assets/icons/thumbs-down.svg" class="is-invert" />
       </div>
-      <div class="swipe-action-tip" :class="{'is-hidden' : swipeDirection !== 'right'}">
+      <div class="swipe-action-tip" v-if="swipeDirection === 'right'">
         <img src="@/assets/icons/book-open.svg" class="is-invert" />
       </div>
-      <div class="swipe-action-tip" :class="{'is-hidden' : swipeDirection !== 'left'}">
+      <div class="swipe-action-tip" v-if="swipeDirection === 'left'">
         <img src="@/assets/icons/x.svg" class="is-invert" />
       </div>
-      <div class="swipe-action-tip" :class="{'is-hidden' : swipeDirection !== 'up' }">
+      <div class="swipe-action-tip" v-if="swipeDirection === 'up'">
         <img src="@/assets/icons/thumbs-up.svg" class="is-invert" />
       </div>
     </div>
@@ -339,16 +339,17 @@ $fs-card-title: 1.125em;
 
 .card-title {
   font-size: 2rem;
-  line-height: 1.125;
+  // line-height: 1.25em;
   font-weight: 600;
 
   margin: 0;
 }
 
 .card-source {
-  line-height: 1.25;
+  // line-height: 1.25em;
   font-size: 1.25rem;
   font-style: italic;
+  display: flex;
 }
 .source-link {
   cursor: pointer;
@@ -371,6 +372,7 @@ $fs-card-title: 1.125em;
   word-wrap: break-word;
   overflow-y: auto;
   flex-grow: 2;
+  // line-height: 2em;
   // max-height: 100%;
 }
 .card-background {

@@ -1,16 +1,17 @@
 <template>
   <div class="cards">
+    <!-- v-for="index in 3" -->
     <Card
-      v-for="(card, index) in cards"
-      :key="card._id"
-      :card="card"
+      v-for="(card, index) in cardsSmall"
+      :key="cardsSmall[index]._id"
+      :card="cardsSmall[index]"
       :index="index"
       :is-current="index === 0"
       @cardRight="$emit('cardRight');"
       @cardLeft="$emit('cardLeft');"
       @cardDown="$emit('cardDown');"
       @cardUp="$emit('cardUp');"
-      @hideCard="$emit('hideCard');"
+      @hideCard="handleHideCard();"
     />
   </div>
 </template>
@@ -26,6 +27,22 @@ export default {
     cards: {
       type: Array,
       required: true
+    }
+  },
+  data() {
+    return {
+      cardsSmall: this.cards.slice(0, 4)
+    };
+  },
+  methods: {
+    handleHideCard() {
+      this.cards.shift();
+      this.cardsSmall.shift();
+      setTimeout(() => {
+        if (this.cards[3] !== undefined) {
+          this.cardsSmall.push(this.cards[3]);
+        }
+      });
     }
   }
 };
