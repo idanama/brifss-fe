@@ -1,18 +1,25 @@
 <template>
   <div id="app" :class="{'no-scroll':(tab==='feed')}">
-    <Logo :fixed="true" :large="true" />
-    <div v-if="username===''">
-      <Welcome />
+    <Logo :fixed="true" :large=" tab==='welcome'" />
+    <div v-if="tab==='welcome'">
+      <Welcome
+        @initApp="changeTab('feed')"
+        :selectedSources="sources"
+        @setUsername="setUsername($event)"
+      />
     </div>
     <div v-else>
       <div v-if="tab==='feed'">
-        <CardStack :cards="cards" @cardRight="addToList(cards[0])" />
-        <Countdown :now="cards.length" />
+        <div v-if="cards.length>0">
+          <CardStack :cards="cards" @cardRight="addToList(cards[0])" />
+          <Countdown :now="cards.length" />
+        </div>
       </div>
       <ReadList :list="list" v-if="tab==='read'" />
-      <Config v-if="tab==='config'" />
-      <Navbar :tab="tab" v-on:tab="changeTab" />
+      <Config :selectedSources="sources" v-if="tab==='config'" />
+      <Navbar :tab="tab" :listLength="list.length" v-on:tab="changeTab" />
     </div>
+    <!-- <div @click="getArticles()" class="button is-primary">getArticles</div> -->
   </div>
 </template>
 
@@ -26,6 +33,8 @@ import CardStack from "@/components/CardStack.vue";
 import Countdown from "@/components/Countdown.vue";
 import ReadList from "@/components/ReadList.vue";
 
+import ARTICLES from "@/graphql/ArticlesGetNew.gql";
+
 export default {
   components: {
     Welcome,
@@ -38,32 +47,79 @@ export default {
   },
   data() {
     let cards = [];
-    for (var i = 0; i < 300; i++) {
-      cards.push({
-        title: "The Sunday Read: ‘The Man Who Saw America’",
-        source: { name: "New York Times" },
-        contentSnippet:
-          "Chronicling the human condition with one of the most influential photographers in history.",
-        imageUrl: [
-          "https://static01.nyt.com/images/2020/05/27/science/28daily/merlin_172858092_fae473bb-8e46-4bb4-8b0a-0d09ccd98fff-videoSixteenByNineJumbo1600.jpg"
-        ],
-        link: "https://nyt.com",
-        _id: i
-      });
-    }
     return {
+      sources: {},
+      init: false,
       cards,
-      tab: "",
+      articles: [],
+      tab: "welcome",
       list: [],
-      username: ""
+      username: "",
+      feedDuration: 24 * (60 * 60 * 1000) // 24 hours
     };
   },
   methods: {
     changeTab(tab) {
-      this.tab = tab;
+      // this.tab = tab;
+      this.$set(this, "tab", tab);
     },
     addToList(card) {
-      this.list.push(card);
+      this.$set(this, "list", [...this.list, card]);
+      // this.list.push(card);
+    },
+    setUsername(username) {
+      // this.username = username;
+      this.$set(this, "username", username);
+    },
+    async getArticles() {
+      const fetchFroms = [];
+      const fetchSources = [];
+      const fetchEarliest = new Date(Date.now() - this.feedDuration);
+      for (let id in this.sources) {
+        // console.log(id);
+
+        let fetchFrom = fetchEarliest;
+        if (this.sources[id].lastFetched !== undefined) {
+          fetchFrom =
+            this.sources[id].lastFetched.end > fetchEarliest
+              ? this.sources[id].lastFetched.end
+              : fetchEarliest;
+        }
+        fetchFroms.push(fetchFrom);
+        fetchSources.push(id);
+      }
+
+      const result = await this.$apollo.query({
+        // Query
+        query: ARTICLES,
+        // Parameters
+        variables: {
+          fetchSources,
+          fetchFroms
+        }
+      });
+      // this.sources
+
+      this.addArticles(result.data.articlesGetNew);
+    },
+    addArticles(articlesToAdd) {
+      const addThem = [];
+      const articlesNow = this.cards;
+      articlesToAdd.forEach(articleToAdd => {
+        if (!articlesNow.find(article => article._id === articleToAdd._id)) {
+          addThem.push(articleToAdd);
+        }
+      });
+      // console.log("add:", addThem);
+      this.$set(this, "cards", [...this.cards, ...addThem]);
+      // this.cards.push(...addThem);
+    }
+  },
+  watch: {
+    tab() {
+      if (this.tab === "feed") {
+        this.getArticles();
+      }
     }
   }
 };

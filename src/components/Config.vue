@@ -1,18 +1,12 @@
 <template>
   <div>
     <ul>
-      <!-- <li class="config-item">
-        <div class="config-title">Preferences</div>Show items from
-        <span class="select">
-          <select>
-            <option>Select dropdown</option>
-            <option>With options</option>
-          </select>
-        </span>ago
-      </li>-->
+      <li class="config-item">
+        <Sources :selectedSources="selectedSources" />
+      </li>
       <li class="config-item">
         <div class="config-title">About</div>
-        <div>Designed and developed with care by Idan Amati</div>
+        <div>Designed and developed by Idan Amati © {{year}}</div>
       </li>
       <li class="config-item config-bottom"></li>
     </ul>
@@ -20,8 +14,21 @@
 </template>
 
 <script>
+import Sources from "@/components/Sources.vue";
+
 export default {
-  name: "Config"
+  name: "Config",
+  props: {
+    selectedSources: { type: Object }
+  },
+  components: {
+    Sources
+  },
+  data() {
+    const now = new Date();
+    const year = now.getFullYear();
+    return { year };
+  }
 };
 </script>
 
@@ -31,9 +38,9 @@ export default {
   border-top: 1px solid #ededed;
   border-left: 1px solid #ededed;
   border-right: 1px solid #ededed;
-  padding: 0.5rem;
-  padding-left: 1rem;
-  padding-right: 1rem;
+  padding: 0.5em;
+  padding-left: 1em;
+  padding-right: 1em;
   //   display: flex;
   justify-content: space-between;
 }

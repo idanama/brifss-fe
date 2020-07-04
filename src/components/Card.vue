@@ -37,7 +37,7 @@
         <div class="card-title">{{card.title}}</div>
         <div v-if="isExtra || card.showSnippet" class="card-snippet">{{card.contentSnippet}}</div>
         <div class="card-subtitle" v-if="card.source">
-          <div class="card-source">
+          <div class="button is-transparent card-source" @click.stop="cardOpen(card.link)">
             {{card.source.name}}
             <img
               src="@/assets/icons/external-link.svg"
@@ -209,8 +209,8 @@ export default {
     // ...mapActions({
     //   act: "activity/act"
     // }),
-    cardOpen({ link }) {
-      window.open(link);
+    cardOpen(link) {
+      window.open(link, "_blank");
       //   this.$store.dispatch("activity/act", {
       //     _id,
       //     activity: "read"

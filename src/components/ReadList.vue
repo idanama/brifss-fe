@@ -2,7 +2,12 @@
   <div class="read-list">
     <ul>
       <transition-group name="list-complete">
-        <li v-for="(item,index) in list" v-bind:key="item._id" class="read-item">
+        <li
+          v-for="(item,index) in list"
+          v-bind:key="item._id"
+          class="read-item"
+          :class="{rtl : item.source.rtl}"
+        >
           <a
             v-bind:href="item.link"
             target="_blank"

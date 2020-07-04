@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="logo">
     <div v-if="fixed" class="logo-spacer" :class="{'logo-large':large}">
       <span class="logo-type">Brifss</span>
       <img src="@/assets/logo.svg" class="svg-logo" />
@@ -13,6 +13,9 @@
   </div>
 </template>
 <style>
+.logo {
+  font-size: 2.6rem;
+}
 .svg-logo {
   display: inline-block;
   align-self: center;

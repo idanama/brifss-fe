@@ -1,0 +1,9 @@
+mutation userUpdateStats($stats:[UserStatsInput]){
+        userUpdateStats(stats: $stats) {
+          stats {
+            _id,
+            activity,
+            timestamp
+          }
+        }
+      }

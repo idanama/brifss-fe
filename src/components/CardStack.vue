@@ -13,6 +13,7 @@
       @cardUp="$emit('cardUp');"
       @hideCard="handleHideCard();"
     />
+    <div v-if="cards.length === 0">Nothing to swipe here</div>
   </div>
 </template>
 

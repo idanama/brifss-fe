@@ -9,8 +9,11 @@
       </div>
       <div class="nav-action" @click="$emit('tab','read')">
         <transition class="nav-action" name="bounce">
-          <div class="button is-primary is-circle">
-            <img src="@/assets/icons/book-open.svg" class="svg-icon is-invert" />
+          <div class="button is-primary is-circle" v-if="listLength>0">
+            <transition name="fade" mode="out-in">
+              <span v-if="tab==='feed'">{{listLength}}</span>
+              <img src="@/assets/icons/book-open.svg" class="svg-icon is-invert" v-else />
+            </transition>
           </div>
         </transition>
       </div>
@@ -22,7 +25,8 @@
 export default {
   name: "Navbar",
   props: {
-    tab: { type: String }
+    tab: { type: String },
+    listLength: { type: Number }
   }
 };
 </script>
@@ -55,6 +59,14 @@ export default {
   100% {
     transform: scale(1);
   }
+}
+
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.15s;
+}
+.fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */ {
+  opacity: 0;
 }
 
 .bottom-nav {

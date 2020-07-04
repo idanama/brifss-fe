@@ -1,46 +1,87 @@
 <template>
   <div class="welcome">
-    <VueAgile
-      class="slide-container"
-      ref="carousel"
-      :navButtons="false"
-      :infinite="false"
-      @after-change="showCurrentSlide($event)"
-    >
-      <section class="slide" v-for="(slide,i) in intro" v-bind:key="'slide'+i">
-        <div class="welcome-image-container">
-          <img class="welcome-image" :src="slide.image" />
-        </div>
-        <div class="welcome-text">
-          <p v-for="(line,ii) in slide.text" v-bind:key="'line'+ii">{{line}}</p>
-        </div>
-      </section>
-    </VueAgile>
-    <div class="buttons">
-      <a @click="$refs.carousel.goToPrev()" :class="{'is-hidden' : currentSlide<1}">Previous</a>
-      <!-- <a v-else></a> -->
-      <div class="button is-primary" @click="$refs.carousel.goToNext()" v-if="currentSlide<2">Next</div>
-      <!-- v-if="" -->
-      <div class="button is-primary" v-else @click="$emit('welcomeFinished')">Start</div>
+    <div v-if="phase===0">
+      <VueAgile
+        class="slide-container"
+        ref="carousel"
+        :navButtons="false"
+        :infinite="false"
+        @after-change="showCurrentSlide($event)"
+      >
+        <section class="slide" v-for="(slide,i) in intro" v-bind:key="'slide'+i">
+          <div class="welcome-image-container">
+            <img class="welcome-image" :src="slide.image" />
+          </div>
+          <div class="welcome-text">
+            <p v-for="(line,ii) in slide.text" v-bind:key="'line'+ii">{{line}}</p>
+          </div>
+        </section>
+      </VueAgile>
+      <div class="buttons">
+        <a @click="$refs.carousel.goToPrev()" :class="{'is-hidden' : currentSlide<1}">Previous</a>
+        <div class="button is-primary" @click="$refs.carousel.goToNext()" v-if="currentSlide<2">Next</div>
+        <div class="button is-primary" v-else @click="initiateUser()">Start</div>
+      </div>
+    </div>
+    <div v-else>
+      <Sources :selectedSources="selectedSources" />
+      <div class="buttons">
+        <div @click="$emit('initApp')" class="button is-primary">Continue</div>
+      </div>
     </div>
   </div>
 </template>
 
 <script>
+import Sources from "@/components/Sources.vue";
+
 import { VueAgile } from "vue-agile";
+
+import * as Cookies from "js-cookie";
 
 export default {
   name: "Welcome",
+  props: {
+    selectedSources: { type: Object },
+    init: { type: Boolean }
+  },
   components: {
+    Sources,
     VueAgile
   },
   methods: {
     showCurrentSlide({ currentSlide }) {
       this.currentSlide = currentSlide;
+    },
+    async initiateUser() {
+      this.phase = 1;
+      fetch("https://feedbackend.herokuapp.com/userInit")
+        .then(res => {
+          if (!res.ok) {
+            console.log("error initiating user");
+          }
+          // console.log(res.json());
+          return res;
+        })
+        .then(res => res.json())
+        .then(data => {
+          console.log(`username is ${data.username}`);
+          this.$emit("setUsername", data.username);
+          // this.username = data.username;
+          Cookies.set("apollo-token", data.jwt, {
+            sameSite: "Strict",
+            secure: true,
+            expires: 90
+          });
+          console.log("cookie and username set");
+        });
+      // this.username = "username";
     }
   },
   data() {
     return {
+      // selectedSources: {},
+      phase: 0,
       currentSlide: 0,
       intro: [
         {
@@ -91,7 +132,7 @@ export default {
   display: flex;
 }
 .welcome-image {
-  max-height: 400px;
+  max-height: 35vh;
 }
 .welcome-text {
   width: 100%;

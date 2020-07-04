@@ -1,0 +1,19 @@
+
+query articlesGetNew($fetchSources:[MongoID!],$fetchFroms:[String]){
+    articlesGetNew(
+        sources: $fetchSources
+        fetchFroms: $fetchFroms
+      ) {
+          _id
+          title
+          link
+          source{
+            name
+            _id
+            rtl
+          }
+          imageUrl
+          contentSnippet
+          createdAt
+      }
+}
