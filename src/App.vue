@@ -49,16 +49,58 @@ export default {
     let cards = [];
     return {
       sources: {},
-      init: false,
       cards,
-      articles: [],
       tab: "welcome",
       list: [],
       username: "",
       feedDuration: 24 * (60 * 60 * 1000) // 24 hours
     };
   },
+  mounted() {
+    this.initLocalStorage("sources");
+    this.initLocalStorage("cards");
+    this.initLocalStorage("list");
+    this.initLocalStorage("feedDuration");
+    this.initLocalStorage("username");
+    if (this.username !== "") {
+      this.tab = "feed";
+    }
+  },
+  watch: {
+    sources(newVal) {
+      localStorage.sources = JSON.stringify(newVal);
+    },
+    init(newVal) {
+      localStorage.init = JSON.stringify(newVal);
+    },
+    cards(newVal) {
+      localStorage.cards = JSON.stringify(newVal);
+    },
+    list(newVal) {
+      localStorage.list = JSON.stringify(newVal);
+    },
+    username(newVal) {
+      localStorage.username = JSON.stringify(newVal);
+    },
+    feedDuration(newVal) {
+      localStorage.feedDuration = JSON.stringify(newVal);
+    },
+    tab() {
+      if (this.tab === "feed") {
+        this.getArticles();
+      }
+    }
+  },
   methods: {
+    initLocalStorage(key) {
+      if (localStorage.getItem(key)) {
+        try {
+          this[key] = JSON.parse(localStorage.getItem(key));
+        } catch (e) {
+          localStorage.removeItem(key);
+        }
+      }
+    },
     changeTab(tab) {
       // this.tab = tab;
       this.$set(this, "tab", tab);
@@ -113,13 +155,6 @@ export default {
       // console.log("add:", addThem);
       this.$set(this, "cards", [...this.cards, ...addThem]);
       // this.cards.push(...addThem);
-    }
-  },
-  watch: {
-    tab() {
-      if (this.tab === "feed") {
-        this.getArticles();
-      }
     }
   }
 };
