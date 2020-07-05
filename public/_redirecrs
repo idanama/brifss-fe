@@ -1,0 +1,2 @@
+# api redirects for netlify
+/graph      https://feedbackend.herokuapp.com/graph     200
