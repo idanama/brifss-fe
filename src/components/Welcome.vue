@@ -13,20 +13,28 @@
             <img class="welcome-image" :src="slide.image" />
           </div>
           <div class="welcome-text">
-            <p v-for="(line,ii) in slide.text" v-bind:key="'line'+ii">{{line}}</p>
+            <p v-html=" $t(`welcome[${i}]`)"></p>
           </div>
         </section>
       </VueAgile>
       <div class="buttons">
-        <a @click="$refs.carousel.goToPrev()" :class="{'is-hidden' : currentSlide<1}">Previous</a>
-        <div class="button is-primary" @click="$refs.carousel.goToNext()" v-if="currentSlide<2">Next</div>
-        <div class="button is-primary" v-else @click="initiateUser()">Start</div>
+        <a
+          @click="$refs.carousel.goToPrev()"
+          :class="{'is-hidden' : currentSlide<1}"
+        >{{$t('actions.previous')}}</a>
+        <div
+          class="button is-primary"
+          @click="$refs.carousel.goToNext()"
+          v-if="currentSlide<2"
+        >{{$t('actions.next')}}</div>
+        <div class="button is-primary" v-else @click="initiateUser()">{{$t('actions.start')}}</div>
       </div>
     </div>
     <div v-else>
+      {{$t('sources.select')}}
       <Sources :cards="cards" :selectedSources="selectedSources" />
       <div class="buttons">
-        <div @click="$emit('initApp')" class="button is-primary">Continue</div>
+        <div @click="$emit('initApp')" class="button is-primary">{{$t('actions.continue')}}</div>
       </div>
     </div>
   </div>

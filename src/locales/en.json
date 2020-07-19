@@ -1,0 +1,36 @@
+{
+  "brifss": "Brifss",
+  "subtitle": "The tldr news aggregator.",
+  "actions": {
+    "next": "Next",
+    "previous": "Previous",
+    "start": "Start",
+    "continue": "Continue"
+  },
+  "cards": {
+    "noSources": "No sources selected",
+    "empty": "Nothing to swipe here"
+  },
+  "sources": {
+    "title": "Sources",
+    "select": "Select your sources:"
+  },
+  "readList": {
+    "dismissAll": "Dismiss All",
+    "empty": "Nothing to read here"
+  },
+  "welcome": [
+    "Go through news titles from the sources you like.",
+    "Make a reading list with the articles that worth your time.<br>Opinionate your feed and see the things that matter to you first.",
+    "This site uses cookies, by continue using it you agree to that"
+  ],
+  "about": {
+    "title": "About",
+    "content": "Designed and developed by Idan Amati"
+  },
+  "locale": {
+    "title": "Language",
+    "language": "English",
+    "code": "en"
+  }
+}

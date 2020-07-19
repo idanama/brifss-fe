@@ -1,6 +1,6 @@
 @import "@/assets/reset";
 @import url("https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=Playfair+Display&display=swap");
-
+@import url("https://fonts.googleapis.com/css2?family=Tinos:wght@700&display=swap");
 
 $primary: hsl(0, 0%, 4%);
 $primaryLight: hsl(0, 0%, 7%);
@@ -19,9 +19,19 @@ $text: #151515;
     text-align: right;
 }
 
+.ltr {
+    direction: ltr;
+    text-align: left;
+}
+
 
 .logo-type {
     font-family: 'DM Serif Display', serif;
+}
+
+.logo-type-he {
+    font-family: 'Tinos', serif;
+    font-size: 0.9em;
 }
 
 .is-invert {
@@ -71,8 +81,92 @@ body {
     width: 1em;
     margin-left: 0.3rem;
     margin-right: 0.3rem;
+    // top: -0.125em;
     position: relative;
 }
+
+select {
+
+    /* styling */
+    border-radius: 2px;
+    background-color: $backgroundLight;
+    // color: $text;
+    cursor: pointer;
+    margin-bottom: .5em;
+    margin-top: .5em;
+    padding-left: 1em;
+    padding-right: 3.5em;
+    margin-left: 0.5em;
+    margin-right: 0.5em;
+    border-color: $primaryText;
+    border-width: 1px;
+    box-shadow: none;
+    // display: inline-flex;
+    height: 2.5rem;
+    border: 1px solid $primaryText;
+    justify-content: center;
+    text-align: center;
+    white-space: nowrap;
+
+
+    &:hover {
+        border: 1px solid $primary;
+        box-shadow: 0 0 0 .15em rgba(114, 114, 114, 0.25);
+    }
+
+    /* reset */
+
+    // margin: 0;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+}
+
+
+/* arrows */
+
+select {
+    background-image:
+        linear-gradient(45deg, transparent 50%, gray 50%),
+        linear-gradient(135deg, gray 50%, transparent 50%),
+        linear-gradient(to right, #ccc, #ccc);
+    background-position:
+        calc(100% - 20px) calc(1em + 2px),
+        calc(100% - 15px) calc(1em + 2px),
+        calc(100% - 2.5em) 0.5em;
+    background-size:
+        5px 5px,
+        5px 5px,
+        1px 1.5em;
+    background-repeat: no-repeat;
+}
+
+select:focus {
+    background-image:
+        linear-gradient(45deg, $primary 50%, transparent 50%),
+        linear-gradient(135deg, transparent 50%, $primary 50%),
+        linear-gradient(to right, #ccc, #ccc);
+    background-position:
+        calc(100% - 15px) 1em,
+        calc(100% - 20px) 1em,
+        calc(100% - 2.5em) 0.5em;
+    background-size:
+        5px 5px,
+        5px 5px,
+        1px 1.5em;
+    background-repeat: no-repeat;
+    border-color: $primary;
+    outline: 0;
+}
+
+
+select:-moz-focusring {
+    color: transparent;
+    text-shadow: 0 0 0 #000;
+}
+
 
 
 .button {

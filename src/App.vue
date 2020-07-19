@@ -1,6 +1,6 @@
 <template>
-  <div id="app" :class="{'no-scroll':(tab==='feed')}">
-    <Logo :fixed="true" :large=" tab==='welcome'" />
+  <div id="app" :class="{'no-scroll':(tab==='feed'), 'rtl' : $i18n.locale==='he'}">
+    <Logo :fixed="true" :large="tab==='welcome' || tab ==='config'" />
     <div v-if="tab==='welcome'">
       <Welcome
         @initApp="changeTab('feed')"
@@ -25,8 +25,8 @@
           <div
             class="content-centered"
             v-else-if="activeSources(sources).length === 0"
-          >No sources selected</div>
-          <div v-else class="content-centered">Nothing to swipe here</div>
+          >{{$t('cards.noSources')}}</div>
+          <div v-else class="content-centered">{{$t('cards.empty')}}</div>
         </div>
       </div>
       <ReadList v-if="tab==='read'" :list="list" />
@@ -35,6 +35,8 @@
         :cards="cards"
         :selectedSources="sources"
         @selectSource="selectSource"
+        @changeLocale="saveLocal"
+        :locale="locale"
       />
 
       <Navbar :tab="tab" :cards="cards" :listLength="list.length" v-on:tab="changeTab" />
@@ -79,7 +81,8 @@ export default {
       dislikes: [],
       username: "",
       feedDuration: 24 * (60 * 60 * 1000), // 24 hours
-      loading: 0
+      loading: 0,
+      locale: "en"
     };
   },
   mounted() {
@@ -90,6 +93,8 @@ export default {
     this.initLocalStorage("username");
     this.initLocalStorage("likes");
     this.initLocalStorage("dislikes");
+    this.initLocalStorage("locale");
+    this.$root.$i18n.locale = this.locale;
     if (this.username !== "") {
       this.tab = "feed";
     }
@@ -128,6 +133,10 @@ export default {
     }
   },
   methods: {
+    saveLocal(locale) {
+      this.locale = locale;
+      localStorage.locale = JSON.stringify(locale);
+    },
     activeSources(sources) {
       let activeSources = [];
       for (let sourceId in sources) {

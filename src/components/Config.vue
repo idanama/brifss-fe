@@ -2,11 +2,23 @@
   <div>
     <ul>
       <li class="config-item">
+        <div class="config-title">{{$t('sources.title')}}</div>
         <Sources :cards="cards" :selectedSources="selectedSources" @selectSource="selectSource" />
       </li>
       <li class="config-item">
-        <div class="config-title">About</div>
-        <div>Designed and developed by Idan Amati © {{year}}</div>
+        <div class="config-title">
+          {{$t('locale.title')}}
+          <img src="@/assets/icons/globe.svg" class="icon-inline" />
+        </div>
+        <div>
+          <select v-model="$i18n.locale" @change="$emit('changeLocale', $i18n.locale)">
+            <option v-for="(lang, i) in langs" :key="`Lang${i}`" :value="lang.code">{{ lang.lang }}</option>
+          </select>
+        </div>
+      </li>
+      <li class="config-item">
+        <div class="config-title">{{$t('about.title')}}</div>
+        <div>{{$t('about.content')}} © {{year}}</div>
       </li>
       <li class="config-item config-bottom"></li>
     </ul>
@@ -20,7 +32,8 @@ export default {
   name: "Config",
   props: {
     selectedSources: { type: Object },
-    cards: { type: Array }
+    cards: { type: Array },
+    locale: { type: String }
   },
   components: {
     Sources
@@ -28,12 +41,21 @@ export default {
   methods: {
     selectSource(source) {
       this.$emit("selectSource", source);
+    },
+    changeLocale() {
+      console.log(this.$i18n.locale);
     }
   },
   data() {
     const now = new Date();
     const year = now.getFullYear();
-    return { year };
+    return {
+      year,
+      langs: [
+        { lang: "עברית", code: "he" },
+        { lang: "English", code: "en" }
+      ]
+    };
   }
 };
 </script>
@@ -54,6 +76,7 @@ export default {
 .config-title {
   //   font-size: 1.3rem;
   font-weight: bold;
+  display: flex;
 }
 
 .config-bottom {

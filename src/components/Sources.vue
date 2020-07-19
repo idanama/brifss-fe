@@ -12,7 +12,7 @@
 
         <!-- Result -->
         <div v-else-if="data">
-          <div class="sources-title">Select you sources:</div>
+          <!-- <div class="sources-title">{{$t('sources.select')}}</div> -->
           <div class="source-buttons">
             <div
               v-for="source in data.sources"

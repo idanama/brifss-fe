@@ -30,6 +30,7 @@
         class="card-content"
         :class="{
       rtl: card.source.rtl === true,
+      ltr: card.source.rtl !== true,
       isAnimating: isInteractAnimating,
     }"
         v-if="swipeDirection===''"

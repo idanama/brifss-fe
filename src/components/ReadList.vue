@@ -34,9 +34,9 @@
           </div>
         </li>
         <li v-bind:key="'eof'" v-if="list.length!==0" class="read-item read-bottom">
-          <a @click="dismiss(0,list.length)">Dismiss All</a>
+          <a @click="dismiss(0,list.length)">{{$t('readList.dismissAll')}}</a>
         </li>
-        <li v-bind:key="'empty'" class="read-item read-bottom" v-else>Nothing to read here</li>
+        <li v-bind:key="'empty'" class="read-item read-bottom" v-else>{{$t('readList.empty')}}</li>
       </transition-group>
     </ul>
   </div>

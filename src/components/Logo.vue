@@ -1,14 +1,14 @@
 <template>
   <div class="logo">
     <div v-if="fixed" class="logo-spacer" :class="{'logo-large':large}">
-      <span class="logo-type">Brifss</span>
+      <span class="logo-type" :class="{'logo-type-he' : $i18n.locale==='he'}">{{$t('brifss')}}</span>
       <img src="@/assets/logo.svg" class="svg-logo" />
-      <div v-if="large" class="logo-subtitle">The tldr news aggregator.</div>
+      <div v-if="large" class="logo-subtitle">{{$t('subtitle')}}</div>
     </div>
-    <div :class="{'logo-fixed' : fixed, 'logo-large':large}">
-      <span class="logo-type">Brifss</span>
+    <div :class="{'logo-fixed' : fixed, 'logo-fixed-rtl': $i18n.locale==='he','logo-large':large}">
+      <span class="logo-type" :class="{'logo-type-he' : $i18n.locale==='he'}">{{$t('brifss')}}</span>
       <img src="@/assets/logo.svg" class="svg-logo" />
-      <div v-if="large" class="logo-subtitle">The tldr news aggregator.</div>
+      <div v-if="large" class="logo-subtitle">{{$t('subtitle')}}</div>
     </div>
   </div>
 </template>
@@ -26,12 +26,15 @@
 }
 .logo-fixed {
   z-index: 10;
-  /* display: flex; */
   position: fixed;
   top: 0px;
   left: 0px;
   padding: 0.25rem;
   transition-duration: 0.3s;
+}
+.logo-fixed-rtl {
+  top: 0px;
+  right: 0px;
 }
 .logo-spacer {
   visibility: hidden;
