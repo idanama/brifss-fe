@@ -24,7 +24,7 @@
       </div>
     </div>
     <div v-else>
-      <Sources :selectedSources="selectedSources" />
+      <Sources :cards="cards" :selectedSources="selectedSources" />
       <div class="buttons">
         <div @click="$emit('initApp')" class="button is-primary">Continue</div>
       </div>
@@ -43,6 +43,7 @@ export default {
   name: "Welcome",
   props: {
     selectedSources: { type: Object },
+    cards: { type: Array },
     init: { type: Boolean }
   },
   components: {

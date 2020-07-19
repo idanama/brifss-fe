@@ -2,7 +2,7 @@
   <div>
     <ul>
       <li class="config-item">
-        <Sources :selectedSources="selectedSources" />
+        <Sources :cards="cards" :selectedSources="selectedSources" @selectSource="selectSource" />
       </li>
       <li class="config-item">
         <div class="config-title">About</div>
@@ -19,10 +19,16 @@ import Sources from "@/components/Sources.vue";
 export default {
   name: "Config",
   props: {
-    selectedSources: { type: Object }
+    selectedSources: { type: Object },
+    cards: { type: Array }
   },
   components: {
     Sources
+  },
+  methods: {
+    selectSource(source) {
+      this.$emit("selectSource", source);
+    }
   },
   data() {
     const now = new Date();

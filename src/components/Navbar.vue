@@ -1,5 +1,5 @@
 <template>
-  <transition name="slide">
+  <transition appear name="slide">
     <nav role="navigation" class="bottom-nav" aria-label="main navigation">
       <div class="nav-item" @click="$emit('tab','feed')">
         <img src="@/assets/logo.svg" class="svg-icon" />
@@ -33,7 +33,7 @@ export default {
 
 <style>
 .slide-enter-active {
-  transition: all 0.3s ease;
+  transition: all 0.5s ease;
 }
 .slide-leave-active {
   transition: all 1s cubic-bezier(1, 0.5, 0.8, 1);
