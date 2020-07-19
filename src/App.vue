@@ -1,12 +1,15 @@
 <template>
   <div id="app" :class="{'no-scroll':(tab==='feed'), 'rtl' : $i18n.locale==='he'}">
-    <Logo :fixed="true" :large="tab==='welcome' || tab ==='config'" />
+    <Logo :fixed="tab==='feed' || tab === 'read'" :large="tab==='welcome' || tab ==='config'" />
     <div v-if="tab==='welcome'">
       <Welcome
         @initApp="changeTab('feed')"
         :selectedSources="sources"
         :cards="cards"
+        :locale="locale"
         @setUsername="setUsername($event)"
+        @changeLocale="saveLocal"
+        @selectSource="selectSource"
       />
     </div>
     <div v-else>

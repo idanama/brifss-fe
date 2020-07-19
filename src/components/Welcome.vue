@@ -2,13 +2,27 @@
   <div class="welcome">
     <div v-if="phase===0">
       <VueAgile
-        class="slide-container"
+        class="slide-container ltr"
         ref="carousel"
         :navButtons="false"
         :infinite="false"
+        :rtl="$i18n.locale==='he'"
         @after-change="showCurrentSlide($event)"
       >
-        <section class="slide" v-for="(slide,i) in intro" v-bind:key="'slide'+i">
+        <!-- <section :class="{'rtl' : $i18n.locale==='he'}" class="slide" v-bind:key="'locale'">
+          <select
+            v-model="$i18n.locale"
+            @change="$emit('changeLocale', $i18n.locale)"
+          >
+            <option v-for="(lang, i) in langs" :key="`Lang${i}`" :value="lang.code">{{ lang.lang }}</option>
+          </select>
+        </section>-->
+        <section
+          :class="{'rtl' : $i18n.locale==='he'}"
+          class="slide"
+          v-for="(slide,i) in intro"
+          v-bind:key="'slide'+i"
+        >
           <div class="welcome-image-container">
             <img class="welcome-image" :src="slide.image" />
           </div>
@@ -29,10 +43,18 @@
         >{{$t('actions.next')}}</div>
         <div class="button is-primary" v-else @click="initiateUser()">{{$t('actions.start')}}</div>
       </div>
+      <div class="buttons subtext">
+        <a
+          v-for="(lang, i) in langs"
+          :key="`Lang${i}`"
+          @click="$emit('changeLocale', lang.code); $root.$i18n.locale=lang.code"
+          :value="lang.code"
+        >{{ lang.lang }}</a>
+      </div>
     </div>
     <div v-else>
-      {{$t('sources.select')}}
-      <Sources :cards="cards" :selectedSources="selectedSources" />
+      <div class="welcome-text">{{$t('sources.select')}}</div>
+      <Sources :cards="cards" :selectedSources="selectedSources" @selectSource="selectSource" />
       <div class="buttons">
         <div @click="$emit('initApp')" class="button is-primary">{{$t('actions.continue')}}</div>
       </div>
@@ -52,13 +74,17 @@ export default {
   props: {
     selectedSources: { type: Object },
     cards: { type: Array },
-    init: { type: Boolean }
+    init: { type: Boolean },
+    locale: { type: String }
   },
   components: {
     Sources,
     VueAgile
   },
   methods: {
+    selectSource(source) {
+      this.$emit("selectSource", source);
+    },
     showCurrentSlide({ currentSlide }) {
       this.currentSlide = currentSlide;
     },
@@ -90,6 +116,10 @@ export default {
   data() {
     return {
       // selectedSources: {},
+      langs: [
+        { lang: "עברית", code: "he" },
+        { lang: "English", code: "en" }
+      ],
       phase: 0,
       currentSlide: 0,
       intro: [
