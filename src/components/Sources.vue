@@ -103,26 +103,23 @@ export default {
         }
 
         const reorderArrayByKey = (array, key, to) => {
-          array.splice(
-            to,
-            0,
+          // check if key exists then reorder
+          if (array.findIndex(element => Object.keys(element)[0] === key) > 0) {
             array.splice(
-              array.findIndex(element => Object.keys(element)[0] === key),
-              1
-            )[0]
-          );
+              to,
+              0,
+              array.splice(
+                array.findIndex(element => Object.keys(element)[0] === key),
+                1
+              )[0]
+            );
+          }
         };
 
         // Sort A-Z
 
-        // // priority 3 - united-states
-        // reorderArrayByKey(sourcesArray, "עברית", 0);
-
-        // priority 2 - user system locale
-        reorderArrayByKey(sourcesArray, "Israel", 0);
-
-        // priority 1 - ui language
-        reorderArrayByKey(sourcesArray, "Israel", 0);
+        // priority 2 - user timezone locale
+        reorderArrayByKey(sourcesArray, this.TZLocale, 0);
 
         return sourcesArray;
       } else {

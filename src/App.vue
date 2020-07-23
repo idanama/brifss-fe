@@ -203,6 +203,7 @@ export default {
     },
     setUsername(username) {
       // this.username = username;
+      console.log("username:", username);
       this.$set(this, "username", username);
     },
     async getArticles() {
