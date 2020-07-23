@@ -55,15 +55,15 @@ export default {
       geolocation: null
     };
   },
-  created() {
-    this.getGeolocation();
-  },
+  // created() {
+  //   this.getGeolocation();
+  // },
   methods: {
-    async getGeolocation() {
-      fetch("https://extreme-ip-lookup.com/json/").then(res => {
-        console.log(res);
-      });
-    },
+    // async getGeolocation() {
+    //   fetch("https://extreme-ip-lookup.com/json/").then(res => {
+    //     console.log(res);
+    //   });
+    // },
     isSourceActive(sourceId) {
       if (this.selectedSources[sourceId]) {
         if (this.selectedSources[sourceId].active) {
