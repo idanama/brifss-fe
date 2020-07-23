@@ -52,6 +52,10 @@
         >{{ lang.lang }}</a>
       </div>
     </div>
+    <div v-else-if="phase===1">
+      <!-- getting cookie -->
+      <Loader />
+    </div>
     <div v-else>
       <div class="welcome-text">{{$t('sources.select')}}</div>
       <Sources :cards="cards" :selectedSources="selectedSources" @selectSource="selectSource" />
@@ -64,6 +68,7 @@
 
 <script>
 import Sources from "@/components/Sources.vue";
+import Loader from "@/components/Loader.vue";
 
 import { VueAgile } from "vue-agile";
 
@@ -79,7 +84,8 @@ export default {
   },
   components: {
     Sources,
-    VueAgile
+    VueAgile,
+    Loader
   },
   methods: {
     selectSource(source) {
@@ -108,6 +114,7 @@ export default {
             secure: true,
             expires: 90
           });
+          this.phase = 2;
           console.log("cookie and username set");
         });
       // this.username = "username";
