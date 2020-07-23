@@ -24,7 +24,7 @@
 
 <script>
 import Loader from "@/components/Loader.vue";
-import { whatCountry } from "@/scripts/localeCodes.js";
+import { whatCountry, whatCountryTZ } from "@/scripts/localeCodes.js";
 
 export default {
   name: "Sources",
@@ -41,10 +41,10 @@ export default {
     locale: { type: String }
   },
   data() {
-    let browserLocale;
+    let browserLocale = [];
     if (navigator.languages != undefined) browserLocale = navigator.languages;
     else
-      browserLocale =
+      browserLocale[0] =
         navigator.userLanguage ||
         navigator.language ||
         navigator.browserLanguage ||
@@ -52,18 +52,10 @@ export default {
     return {
       browserLocale,
       sources: null,
-      geolocation: null
+      TZLocale: whatCountryTZ(Intl.DateTimeFormat().resolvedOptions().timeZone)
     };
   },
-  // created() {
-  //   this.getGeolocation();
-  // },
   methods: {
-    // async getGeolocation() {
-    //   fetch("https://extreme-ip-lookup.com/json/").then(res => {
-    //     console.log(res);
-    //   });
-    // },
     isSourceActive(sourceId) {
       if (this.selectedSources[sourceId]) {
         if (this.selectedSources[sourceId].active) {
