@@ -2,6 +2,7 @@ query {
         sources: sourceMany(limit: null) {
           name
           category
+          locale
           _id
         }
       }

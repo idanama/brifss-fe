@@ -3,7 +3,12 @@
     <ul>
       <li class="config-item">
         <div class="config-title">{{$t('sources.title')}}</div>
-        <Sources :cards="cards" :selectedSources="selectedSources" @selectSource="selectSource" />
+        <Sources
+          :locale="locale"
+          :cards="cards"
+          :selectedSources="selectedSources"
+          @selectSource="selectSource"
+        />
       </li>
       <li class="config-item">
         <div class="config-title">
