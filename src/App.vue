@@ -71,7 +71,90 @@ export default {
     Countdown,
     CardStack,
     Config,
-    Loader
+    Loader,
+  },
+  metaInfo: {
+    title: "Brifss",
+    meta: [
+      {
+        charset: "utf-8",
+      },
+      {
+        name: "viewport",
+        content: "width=device-width, initial-scale=1",
+      },
+      {
+        hid: "description",
+        name: "description",
+        content: process.env.npm_package_description || "",
+      },
+    ],
+    link: [
+      {
+        rel: "icon",
+        type: "image/png",
+        sizes: "192x192",
+        href: "/img/icons/android-icon-192x192.png",
+      },
+      {
+        rel: "icon",
+        type: "image/png",
+        sizes: "32x32",
+        href: "/img/icons/favicon-32x32.png",
+      },
+      {
+        rel: "icon",
+        type: "image/png",
+        sizes: "96x96",
+        href: "/img/icons/favicon-96x96.png",
+      },
+      {
+        rel: "icon",
+        type: "image/png",
+        sizes: "16x16",
+        href: "/img/icons/favicon-16x16.png",
+      },
+      {
+        rel: "apple-touch-icon",
+        sizes: "57x57",
+        href: "/img/icons/apple-icon-57x57.png",
+      },
+      {
+        rel: "apple-touch-icon",
+        sizes: "60x60",
+        href: "/img/icons/apple-icon-60x60.png",
+      },
+      {
+        rel: "apple-touch-icon",
+        sizes: "72x72",
+        href: "/img/icons/apple-icon-72x72.png",
+      },
+      {
+        rel: "apple-touch-icon",
+        sizes: "76x76",
+        href: "/img/icons/apple-icon-76x76.png",
+      },
+      {
+        rel: "apple-touch-icon",
+        sizes: "114x114",
+        href: "/img/icons/apple-icon-114x114.png",
+      },
+      {
+        rel: "apple-touch-icon",
+        sizes: "120x120",
+        href: "/img/icons/apple-icon-120x120.png",
+      },
+      {
+        rel: "apple-touch-icon",
+        sizes: "144x144",
+        href: "/img/icons/apple-icon-144x144.png",
+      },
+      {
+        rel: "apple-touch-icon",
+        sizes: "152x152",
+        href: "/img/icons/apple-icon-152x152.png",
+      },
+    ],
   },
   data() {
     let cards = [];
@@ -85,7 +168,7 @@ export default {
       username: "",
       feedDuration: 24 * (60 * 60 * 1000), // 24 hours
       loading: 0,
-      locale: "en"
+      locale: "en",
     };
   },
   mounted() {
@@ -133,7 +216,7 @@ export default {
       if (this.tab === "feed") {
         this.getArticles();
       }
-    }
+    },
   },
   methods: {
     saveLocal(locale) {
@@ -224,7 +307,7 @@ export default {
           fetchSources.push(id);
           const lastFetched = {
             start: fetchFrom,
-            end: new Date(Date.now())
+            end: new Date(Date.now()),
           };
           this.sources[id].lastFetched = lastFetched;
         }
@@ -239,8 +322,8 @@ export default {
           // Parameters
           variables: {
             fetchSources,
-            fetchFroms
-          }
+            fetchFroms,
+          },
         });
         // console.log(`complete`);
         this.addArticles(result.data.articlesGetNew);
@@ -255,7 +338,7 @@ export default {
       let articles = this.cards;
 
       // remove old articles
-      articles = articles.filter(article => {
+      articles = articles.filter((article) => {
         return (
           new Date(article.createdAt).valueOf() >
           (new Date() - this.feedDuration).valueOf()
@@ -264,7 +347,7 @@ export default {
 
       // sort by date
       const key = "createdAt";
-      articles.sort(function(a, b) {
+      articles.sort(function (a, b) {
         if (a[key] > b[key]) {
           return -1;
         } else if (a[key] < b[key]) {
@@ -279,16 +362,16 @@ export default {
     addArticles(articlesToAdd) {
       const addThem = [];
       const articlesNow = this.cards;
-      articlesToAdd.forEach(articleToAdd => {
-        if (!articlesNow.find(article => article._id === articleToAdd._id)) {
+      articlesToAdd.forEach((articleToAdd) => {
+        if (!articlesNow.find((article) => article._id === articleToAdd._id)) {
           addThem.push(articleToAdd);
         }
       });
       // console.log("add:", addThem);
       this.$set(this, "cards", [...this.cards, ...addThem]);
       // this.cards.push(...addThem);
-    }
-  }
+    },
+  },
 };
 </script>
 

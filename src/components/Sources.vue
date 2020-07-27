@@ -117,8 +117,9 @@ export default {
         };
 
         // Sort A-Z
+        sourcesArray.sort();
 
-        // priority 2 - user timezone locale
+        // priority 1 - user timezone locale
         reorderArrayByKey(sourcesArray, this.TZLocale, 0);
 
         return sourcesArray;
