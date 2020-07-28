@@ -26,7 +26,8 @@
   ],
   "about": {
     "title": "About",
-    "content": "Designed and developed by Idan Amati"
+    "content": "Designed and developed by",
+    "name": "Idan Amati"
   },
   "locale": {
     "title": "Language",

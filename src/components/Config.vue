@@ -23,7 +23,15 @@
       </li>
       <li class="config-item">
         <div class="config-title">{{$t('about.title')}}</div>
-        <div>{{$t('about.content')}} © {{year}}</div>
+        <div>
+          {{$t('about.content')}}
+          <a
+            href="https://www.idanamati.com"
+            target="_blank"
+            style="font-weight: bold;"
+          >{{$t('about.name')}}</a>
+          © {{year}}
+        </div>
       </li>
       <li class="config-item config-bottom"></li>
     </ul>
@@ -38,10 +46,10 @@ export default {
   props: {
     selectedSources: { type: Object },
     cards: { type: Array },
-    locale: { type: String }
+    locale: { type: String },
   },
   components: {
-    Sources
+    Sources,
   },
   methods: {
     selectSource(source) {
@@ -49,7 +57,7 @@ export default {
     },
     changeLocale() {
       console.log(this.$i18n.locale);
-    }
+    },
   },
   data() {
     const now = new Date();
@@ -58,10 +66,10 @@ export default {
       year,
       langs: [
         { lang: "עברית", code: "he" },
-        { lang: "English", code: "en" }
-      ]
+        { lang: "English", code: "en" },
+      ],
     };
-  }
+  },
 };
 </script>
 
