@@ -11,7 +11,7 @@
     class="card"
     v-on:click.prevent="tapCard()"
   >
-    <div class="card-swipe" :class="swipeStyle">
+    <div :class="swipeStyle" class="ltr card-swipe">
       <div class="swipe-action-tip" v-if="swipeDirection === 'down'">
         <img src="@/assets/icons/thumbs-down.svg" class="is-invert" />
       </div>
@@ -79,22 +79,22 @@ export default {
     interactXThreshold: 100,
 
     tipYThreshold: 80,
-    tipXThreshold: 80
+    tipXThreshold: 80,
   },
 
   props: {
     card: {
       type: Object,
-      required: true
+      required: true,
     },
     index: {
       type: Number,
-      required: true
+      required: true,
     },
     isCurrent: {
       type: Boolean,
-      required: true
-    }
+      required: true,
+    },
   },
 
   data() {
@@ -105,11 +105,11 @@ export default {
       interactPosition: {
         x: 0,
         y: 0,
-        rotation: 0
+        rotation: 0,
       },
       isExtra: false,
       isExtraAnimating: false,
-      swipeDirection: ""
+      swipeDirection: "",
     };
   },
 
@@ -120,7 +120,7 @@ export default {
         "card-swipe-up": this.swipeDirection === "up",
         "card-swipe-down": this.swipeDirection === "down",
         "card-swipe-left": this.swipeDirection === "left",
-        "card-swipe-right": this.swipeDirection === "right"
+        "card-swipe-right": this.swipeDirection === "right",
       };
     },
     transformString() {
@@ -132,7 +132,7 @@ export default {
         return `scale(0.98,0.98)`;
       }
       return null;
-    }
+    },
   },
 
   mounted() {
@@ -143,7 +143,7 @@ export default {
         this.isInteractAnimating = false;
       },
 
-      onmove: event => {
+      onmove: (event) => {
         // event.preventDefault();
         const { tipXThreshold, tipYThreshold } = this.$options.static;
         let x = this.interactPosition.x + event.dx;
@@ -197,7 +197,7 @@ export default {
         else if (y > interactYThreshold) this.playCard(CARD_DOWN);
         else if (y < -interactYThreshold) this.playCard(CARD_UP);
         else this.resetCardPosition();
-      }
+      },
     });
   },
 
@@ -239,7 +239,7 @@ export default {
       const {
         interactOutOfSightXCoordinate,
         interactOutOfSightYCoordinate,
-        interactMaxRotation
+        interactMaxRotation,
       } = this.$options.static;
 
       this.interactUnsetElement();
@@ -248,26 +248,26 @@ export default {
         case CARD_RIGHT:
           this.interactSetPosition({
             x: interactOutOfSightXCoordinate,
-            rotation: interactMaxRotation
+            rotation: interactMaxRotation,
           });
           this.$emit(CARD_RIGHT);
           break;
         case CARD_LEFT:
           this.interactSetPosition({
             x: -interactOutOfSightXCoordinate,
-            rotation: -interactMaxRotation
+            rotation: -interactMaxRotation,
           });
           this.$emit(CARD_LEFT);
           break;
         case CARD_DOWN:
           this.interactSetPosition({
-            y: interactOutOfSightYCoordinate
+            y: interactOutOfSightYCoordinate,
           });
           this.$emit(CARD_DOWN);
           break;
         case CARD_UP:
           this.interactSetPosition({
-            y: -interactOutOfSightYCoordinate
+            y: -interactOutOfSightYCoordinate,
           });
           this.$emit(CARD_UP);
           break;
@@ -288,8 +288,8 @@ export default {
 
     resetCardPosition() {
       this.interactSetPosition({ x: 0, y: 0, rotation: 0 });
-    }
-  }
+    },
+  },
 };
 </script>
 
