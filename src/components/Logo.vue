@@ -46,6 +46,8 @@
 .logo-large {
   font-size: 4rem;
   padding: 1rem;
+
+  transition-duration: 0.3s;
 }
 .logo-type {
   /* line-height: 1; */
@@ -60,11 +62,11 @@ export default {
   name: "Logo",
   props: {
     fixed: {
-      type: Boolean
+      type: Boolean,
     },
     large: {
-      type: Boolean
-    }
-  }
+      type: Boolean,
+    },
+  },
 };
 </script>
