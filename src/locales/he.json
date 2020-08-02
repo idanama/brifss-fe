@@ -5,7 +5,8 @@
         "next": "הבא",
         "previous": "הקודם",
         "start": "התחלה",
-        "continue": "המשך"
+        "continue": "המשך",
+        "skip": "דלג"
     },
     "cards": {
         "noSources": "לא נבחרו מקורות",

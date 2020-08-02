@@ -9,14 +9,6 @@
         :rtl="$i18n.locale==='he'"
         @after-change="showCurrentSlide($event)"
       >
-        <!-- <section :class="{'rtl' : $i18n.locale==='he'}" class="slide" v-bind:key="'locale'">
-          <select
-            v-model="$i18n.locale"
-            @change="$emit('changeLocale', $i18n.locale)"
-          >
-            <option v-for="(lang, i) in langs" :key="`Lang${i}`" :value="lang.code">{{ lang.lang }}</option>
-          </select>
-        </section>-->
         <section
           :class="{'rtl' : $i18n.locale==='he'}"
           class="slide"
@@ -37,24 +29,34 @@
           :class="{'is-hidden' : currentSlide<1}"
         >{{$t('actions.previous')}}</a>
         <div
-          class="button is-primary"
-          @click="$refs.carousel.goToNext()"
           v-if="currentSlide<2"
-        >{{$t('actions.next')}}</div>
+          style="display: flex;
+  flex-direction: row;
+  align-content: center;
+  justify-content: space-around;
+  align-items: baseline;"
+        >
+          <a
+            @click="initiateUser()"
+            style="padding-left:1em;padding-right:1em"
+          >{{$t('actions.skip')}}</a>
+          <div class="button is-primary" @click="$refs.carousel.goToNext()">{{$t('actions.next')}}</div>
+        </div>
         <div class="button is-primary" v-else @click="initiateUser()">{{$t('actions.start')}}</div>
       </div>
-      <div class="buttons subtext">
+      <div class="lang-selector subtext">
         <a
           v-for="(lang, i) in langs"
           :key="`Lang${i}`"
           @click="$emit('changeLocale', lang.code); $root.$i18n.locale=lang.code"
+          style="padding-left:1em;padding-right:1em"
           :value="lang.code"
         >{{ lang.lang }}</a>
       </div>
     </div>
     <div v-else-if="phase===1">
       <!-- getting cookie -->
-      <Loader />
+      <div></div>
     </div>
     <div v-else>
       <div class="welcome-text">{{$t('sources.select')}}</div>
@@ -68,7 +70,6 @@
 
 <script>
 import Sources from "@/components/Sources.vue";
-import Loader from "@/components/Loader.vue";
 
 import { VueAgile } from "vue-agile";
 
@@ -80,12 +81,11 @@ export default {
     selectedSources: { type: Object },
     cards: { type: Array },
     init: { type: Boolean },
-    locale: { type: String }
+    locale: { type: String },
   },
   components: {
     Sources,
     VueAgile,
-    Loader
   },
   methods: {
     selectSource(source) {
@@ -97,59 +97,59 @@ export default {
     async initiateUser() {
       this.phase = 1;
       fetch("https://feedbackend.herokuapp.com/userInit")
-        .then(res => {
+        .then((res) => {
           if (!res.ok) {
             console.log("error initiating user");
           }
           // console.log(res.json());
           return res;
         })
-        .then(res => res.json())
-        .then(data => {
+        .then((res) => res.json())
+        .then((data) => {
           console.log(`username is ${data.username}`);
           this.$emit("setUsername", data.username);
           // this.username = data.username;
           Cookies.set("apollo-token", data.jwt, {
             sameSite: "Strict",
             secure: true,
-            expires: 90
+            expires: 90,
           });
           this.phase = 2;
           console.log("cookie and username set");
         });
       // this.username = "username";
-    }
+    },
   },
   data() {
     return {
       // selectedSources: {},
       langs: [
         { lang: "עברית", code: "he" },
-        { lang: "English", code: "en" }
+        { lang: "English", code: "en" },
       ],
       phase: 0,
       currentSlide: 0,
       intro: [
         {
           text: ["Go through news titles from the sources you like."],
-          image: require("@/assets/illustrations/undraw_newspaper.svg")
+          image: require("@/assets/illustrations/undraw_newspaper.svg"),
         },
         {
           text: [
             "Make a reading list with the articles that worth your time.",
-            "Opinionate your feed and see the things that matter to you first."
+            "Opinionate your feed and see the things that matter to you first.",
           ],
-          image: require("@/assets/illustrations/undraw_options2.svg")
+          image: require("@/assets/illustrations/undraw_options2.svg"),
         },
         {
           text: [
-            "This site uses cookies, by continue using it you agree to that"
+            "This site uses cookies, by continue using it you agree to that",
           ],
-          image: require("@/assets/illustrations/undraw_cookie_love.svg")
-        }
-      ]
+          image: require("@/assets/illustrations/undraw_cookie_love.svg"),
+        },
+      ],
     };
-  }
+  },
 };
 </script>
 
@@ -202,6 +202,17 @@ export default {
   flex-direction: row;
   align-content: center;
   justify-content: space-around;
+  align-items: baseline;
+}
+
+.lang-selector {
+  padding-top: 2em;
+  padding-bottom: 2em;
+  display: flex;
+
+  flex-direction: row;
+  align-content: center;
+  justify-content: center;
   align-items: baseline;
 }
 

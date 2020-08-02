@@ -5,7 +5,8 @@
     "next": "Next",
     "previous": "Previous",
     "start": "Start",
-    "continue": "Continue"
+    "continue": "Continue",
+    "skip": "Skip"
   },
   "cards": {
     "noSources": "No sources selected",
@@ -26,7 +27,7 @@
   ],
   "about": {
     "title": "About",
-    "content": "Designed and code by",
+    "content": "Design and code by",
     "name": "Idan Amati"
   },
   "locale": {
