@@ -59,7 +59,9 @@
       <div></div>
     </div>
     <div v-else>
-      <div class="welcome-text">{{$t('sources.select')}}</div>
+      <div class="welcome-text">
+        <div>{{$t('sources.select')}}</div>
+      </div>
       <Sources :cards="cards" :selectedSources="selectedSources" @selectSource="selectSource" />
       <div class="buttons">
         <div @click="$emit('initApp')" class="button is-primary">{{$t('actions.continue')}}</div>
@@ -106,7 +108,6 @@ export default {
         })
         .then((res) => res.json())
         .then((data) => {
-          console.log(`username is ${data.username}`);
           this.$emit("setUsername", data.username);
           // this.username = data.username;
           Cookies.set("apollo-token", data.jwt, {
@@ -115,7 +116,6 @@ export default {
             expires: 90,
           });
           this.phase = 2;
-          console.log("cookie and username set");
         });
       // this.username = "username";
     },

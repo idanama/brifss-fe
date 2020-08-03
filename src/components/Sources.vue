@@ -29,16 +29,16 @@ import { whatCountry, whatCountryTZ } from "@/scripts/localeCodes.js";
 export default {
   name: "Sources",
   components: {
-    Loader
+    Loader,
   },
   props: {
     selectedSources: {
-      type: Object
+      type: Object,
     },
     cards: {
-      type: Array
+      type: Array,
     },
-    locale: { type: String }
+    locale: { type: String },
   },
   data() {
     let browserLocale = [];
@@ -52,10 +52,24 @@ export default {
     return {
       browserLocale,
       sources: null,
-      TZLocale: whatCountryTZ(Intl.DateTimeFormat().resolvedOptions().timeZone)
+      TZLocale: whatCountryTZ(Intl.DateTimeFormat().resolvedOptions().timeZone),
     };
   },
   methods: {
+    defaultSources() {
+      if (Object.keys(this.selectedSources).length === 0) {
+        console.log(this.sources);
+        for (let i in this.sources) {
+          if (
+            this.sources[i].name === "The Verge" ||
+            this.sources[i].name === "New York Times" ||
+            this.sources[i].name === "TheMarker"
+          ) {
+            this.$emit("selectSource", this.sources[i]);
+          }
+        }
+      }
+    },
     isSourceActive(sourceId) {
       if (this.selectedSources[sourceId]) {
         if (this.selectedSources[sourceId].active) {
@@ -66,7 +80,7 @@ export default {
       } else {
         return false;
       }
-    }
+    },
   },
   computed: {
     sourcesSorted() {
@@ -93,7 +107,7 @@ export default {
 
           // add source to category
           sourcesByLocale[locale][id] = {
-            ...source
+            ...source,
           };
         }
         let sourcesArray = [];
@@ -104,12 +118,14 @@ export default {
 
         const reorderArrayByKey = (array, key, to) => {
           // check if key exists then reorder
-          if (array.findIndex(element => Object.keys(element)[0] === key) > 0) {
+          if (
+            array.findIndex((element) => Object.keys(element)[0] === key) > 0
+          ) {
             array.splice(
               to,
               0,
               array.splice(
-                array.findIndex(element => Object.keys(element)[0] === key),
+                array.findIndex((element) => Object.keys(element)[0] === key),
                 1
               )[0]
             );
@@ -129,13 +145,16 @@ export default {
     },
     loading() {
       return this.$apolloData.queries.sources.loading;
-    }
+    },
   },
   apollo: {
     sources: {
-      query: require("../graphql/SourcesGet.gql")
-    }
-  }
+      query: require("../graphql/SourcesGet.gql"),
+      result() {
+        this.defaultSources();
+      },
+    },
+  },
 };
 </script>
 
