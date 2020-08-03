@@ -22,6 +22,11 @@
         </div>
       </li>
       <li class="config-item">
+        <div class="config-title">{{$t('config.username')}}</div>
+        <div>{{username}}</div>
+      </li>
+
+      <li class="config-item">
         <div class="config-title">{{$t('about.title')}}</div>
         <div>
           {{$t('about.content')}}
@@ -47,6 +52,7 @@ export default {
     selectedSources: { type: Object },
     cards: { type: Array },
     locale: { type: String },
+    username: { type: String },
   },
   components: {
     Sources,

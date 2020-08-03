@@ -37,6 +37,7 @@
         v-if="tab==='config'"
         :cards="cards"
         :selectedSources="sources"
+        :username="username"
         @selectSource="selectSource"
         @changeLocale="saveLocal"
         :locale="locale"

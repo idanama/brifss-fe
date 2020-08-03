@@ -30,6 +30,9 @@
     "content": "Design and code by",
     "name": "Idan Amati"
   },
+  "config": {
+    "username": "Username"
+  },
   "locale": {
     "title": "Language",
     "language": "English",

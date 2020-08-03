@@ -30,6 +30,9 @@
         "content": "עיצב וקוד על ידי",
         "name": "עידן אמטי"
     },
+    "config": {
+        "username": "שם משתמש"
+    },
     "locale": {
         "title": "שפה",
         "language": "עברית",
