@@ -12,17 +12,17 @@
     v-on:click.prevent="tapCard()"
   >
     <div :class="swipeStyle" class="ltr card-swipe">
-      <div class="swipe-action-tip" v-if="swipeDirection === 'down'">
-        <img src="@/assets/icons/thumbs-down.svg" class="is-invert" />
+      <div class="swipe-action-tip" :class="{'no-display' : swipeDirection !== 'down'}">
+        <img src="@/assets/icons/thumbs-down.svg" class="is-invert" rel="preload" />
       </div>
-      <div class="swipe-action-tip" v-if="swipeDirection === 'right'">
-        <img src="@/assets/icons/book-open.svg" class="is-invert" />
+      <div class="swipe-action-tip" :class="{'no-display' : swipeDirection !== 'right'}">
+        <img src="@/assets/icons/book-open.svg" class="is-invert" rel="preload" />
       </div>
-      <div class="swipe-action-tip" v-if="swipeDirection === 'left'">
-        <img src="@/assets/icons/x.svg" class="is-invert" />
+      <div class="swipe-action-tip" :class="{'no-display' : swipeDirection !== 'left'}">
+        <img src="@/assets/icons/x.svg" class="is-invert" rel="preload" />
       </div>
-      <div class="swipe-action-tip" v-if="swipeDirection === 'up'">
-        <img src="@/assets/icons/thumbs-up.svg" class="is-invert" />
+      <div class="swipe-action-tip" :class="{'no-display' : swipeDirection !== 'up'}">
+        <img src="@/assets/icons/thumbs-up.svg" class="is-invert" rel="preload" />
       </div>
     </div>
     <transition name="fade">
