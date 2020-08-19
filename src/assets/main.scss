@@ -9,6 +9,8 @@ $primaryLightest: hsl(0, 0%, 28%);
 $primaryText: #DFDFF1;
 $primaryTextDark: hsl(0, 0%, 80%);
 $primaryTextDarker: hsl(0, 0%, 60%);
+$primaryTextDarkest: hsl(0, 0%, 40%);
+
 $background: #FAFAFA;
 $backgroundLight: #fff;
 
@@ -249,6 +251,23 @@ select:-moz-focusring {
     &.is-primary {
         border-color: $primaryText;
         background-color: $primary;
+        color: $primaryText;
+
+        &:hover {
+            border: 1px solid $primaryTextDarker;
+            box-shadow: 0 0 0 .15em rgba(0, 0, 0, 0.5);
+        }
+
+        &:active {
+            border: 1px solid $primaryLightest;
+            // background-color: $primary;
+            // color: $primaryText
+        }
+    }
+
+    &.is-selected {
+        border-color: $primaryText;
+        background-image: linear-gradient(to right, $primaryLighter, $primaryTextDarkest);
         color: $primaryText;
 
         &:hover {

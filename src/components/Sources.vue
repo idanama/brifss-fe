@@ -12,7 +12,7 @@
               v-for="source in sources"
               v-bind:key="source._id"
               class="button"
-              :class="{'is-primary' : isSourceActive(source._id) }"
+              :class="{'is-selected' : isSourceActive(source._id) }"
               @click="$emit('selectSource',source)"
             >{{ source.name }}</div>
           </div>
