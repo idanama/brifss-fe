@@ -45,7 +45,8 @@
               >
                 <transition name="fade" mode="out-in">
                   <span>
-                    <span style="padding-right:1em">{{listLength}}</span>
+                    <span>{{listLength}}</span>
+                    <span style="margin-right:0.5em;margin-left:0.5em;"></span>
                     <img src="@/assets/icons/book-open.svg" class="svg-icon is-invert" />
                   </span>
                 </transition>
