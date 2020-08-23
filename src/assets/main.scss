@@ -210,6 +210,10 @@ select:-moz-focusring {
         }
     }
 
+    &.is-rounded {
+        border-radius: 20px;
+    }
+
     &.is-icon {
         height: 2rem;
         width: 2rem;
@@ -253,6 +257,9 @@ select:-moz-focusring {
         background-color: $primary;
         color: $primaryText;
 
+        font-weight: bold;
+
+
         &:hover {
             border: 1px solid $primaryTextDarker;
             box-shadow: 0 0 0 .15em rgba(0, 0, 0, 0.5);
@@ -291,4 +298,19 @@ select:-moz-focusring {
 
 .no-display {
     display: none;
+}
+
+.fluid-container {
+    max-width: 800px;
+    width: 100%;
+
+    &.space-between {
+        display: flex;
+        justify-content: space-between;
+    }
+}
+
+.fluid {
+    display: flex;
+    justify-content: center;
 }

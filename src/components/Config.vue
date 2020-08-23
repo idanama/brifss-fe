@@ -2,46 +2,70 @@
   <div>
     <ul>
       <li class="config-item">
-        <div class="config-title">{{$t('sources.title')}}</div>
-        <Sources
-          :locale="locale"
-          :cards="cards"
-          :selectedSources="selectedSources"
-          @selectSource="selectSource"
-        />
-      </li>
-      <li class="config-item">
-        <div class="config-title">
-          {{$t('locale.title')}}
-          <img src="@/assets/icons/globe.svg" class="icon-inline" />
-        </div>
-        <div>
-          <select v-model="$i18n.locale" @change="$emit('changeLocale', $i18n.locale)">
-            <option v-for="(lang, i) in langs" :key="`Lang${i}`" :value="lang.code">{{ lang.lang }}</option>
-          </select>
+        <div class="fluid">
+          <div class="fluid-container">
+            <div class="config-title">{{$t('sources.title')}}</div>
+            <Sources
+              :locale="locale"
+              :cards="cards"
+              :selectedSources="selectedSources"
+              @selectSource="selectSource"
+            />
+          </div>
         </div>
       </li>
       <li class="config-item">
-        <div class="config-title">{{$t('config.buttonBar')}}</div>
-        <select>
-          <option>{{$t('actions.yes')}}</option>
-        </select>
+        <div class="fluid">
+          <div class="fluid-container">
+            <div class="config-title">
+              {{$t('locale.title')}}
+              <img src="@/assets/icons/globe.svg" class="icon-inline" />
+            </div>
+            <div>
+              <select v-model="$i18n.locale" @change="$emit('changeLocale', $i18n.locale)">
+                <option
+                  v-for="(lang, i) in langs"
+                  :key="`Lang${i}`"
+                  :value="lang.code"
+                >{{ lang.lang }}</option>
+              </select>
+            </div>
+          </div>
+        </div>
       </li>
       <li class="config-item">
-        <div class="config-title">{{$t('config.username')}}</div>
-        <div>{{username}}</div>
+        <div class="fluid">
+          <div class="fluid-container">
+            <div class="config-title">{{$t('config.buttonBar')}}</div>
+            <select>
+              <option>{{$t('actions.yes')}}</option>
+            </select>
+          </div>
+        </div>
+      </li>
+      <li class="config-item">
+        <div class="fluid">
+          <div class="fluid-container">
+            <div class="config-title">{{$t('config.username')}}</div>
+            <div>{{username}}</div>
+          </div>
+        </div>
       </li>
 
       <li class="config-item">
-        <div class="config-title">{{$t('about.title')}}</div>
-        <div>
-          {{$t('about.content')}}
-          <a
-            href="https://www.idanamati.com"
-            target="_blank"
-            style="font-weight: bold;"
-          >{{$t('about.name')}}</a>
-          © {{year}}
+        <div class="fluid">
+          <div class="fluid-container">
+            <div class="config-title">{{$t('about.title')}}</div>
+            <div>
+              {{$t('about.content')}}
+              <a
+                href="https://www.idanamati.com"
+                target="_blank"
+                style="font-weight: bold;"
+              >{{$t('about.name')}}</a>
+              © {{year}}
+            </div>
+          </div>
         </div>
       </li>
       <li class="config-item config-bottom"></li>
@@ -95,8 +119,8 @@ export default {
   padding: 0.5em;
   padding-left: 1em;
   padding-right: 1em;
-  //   display: flex;
-  justify-content: space-between;
+  // display: flex;
+  // justify-content: center;
 }
 
 .config-title {

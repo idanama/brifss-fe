@@ -1,47 +1,116 @@
 <template>
-  <transition appear name="slide">
-    <nav role="navigation" class="bottom-nav" aria-label="main navigation">
-      <div class="nav-item" @click="$emit('tab','feed')">
-        <img src="@/assets/logo.svg" class="svg-icon" />
-      </div>
-      <div class="nav-item" @click="$emit('tab','config')">
-        <img src="@/assets/icons/more-vertical.svg" class="svg-icon" />
-      </div>
-      <div class="nav-action" @click="$emit('tab','read')">
-        <transition class="nav-action" name="bounce">
-          <div class="button is-primary is-circle" v-if="listLength>0">
-            <transition name="fade" mode="out-in">
-              <span v-if="tab==='feed'">{{listLength}}</span>
-              <img src="@/assets/icons/book-open.svg" class="svg-icon is-invert" v-else />
-            </transition>
+  <div>
+    <div v-if="!desktop">
+      <Logo
+        :desktop="desktop"
+        :fixed="tab==='feed' || tab === 'read'"
+        :large="tab==='welcome' || tab ==='config'"
+      />
+    </div>
+    <transition appear name="slide-up" v-if="!desktop">
+      <nav role="navigation" class="bottom-nav" aria-label="main navigation">
+        <div class="nav-item" @click="$emit('tab','feed')">
+          <img src="@/assets/logo.svg" class="svg-icon" />
+        </div>
+        <div class="nav-item" @click="$emit('tab','config')">
+          <img src="@/assets/icons/more-vertical.svg" class="svg-icon" />
+        </div>
+        <div class="nav-action" @click="$emit('tab','read')">
+          <transition class="nav-action" name="bounce">
+            <div class="button is-primary is-circle" v-if="listLength>0">
+              <transition name="fade" mode="out-in">
+                <span v-if="tab==='feed'">{{listLength}}</span>
+                <img src="@/assets/icons/book-open.svg" class="svg-icon is-invert" v-else />
+              </transition>
+            </div>
+          </transition>
+        </div>
+      </nav>
+    </transition>
+    <transition appear name="slide-down" v-if="desktop">
+      <div>
+        <div class="top-nav-spacer">
+          <Logo :desktop="desktop" />
+        </div>
+        <nav role="navigation" class="top-nav" aria-label="main navigation">
+          <div class="top-nav-container fluid-container">
+            <div @click="$emit('tab','feed')">
+              <Logo :desktop="desktop" />
+            </div>
+            <div class="top-nav-buttons">
+              <div
+                class="button is-primary is-rounded"
+                v-if="listLength>0"
+                @click="$emit('tab','read')"
+              >
+                <transition name="fade" mode="out-in">
+                  <span>
+                    <span style="padding-right:1em">{{listLength}}</span>
+                    <img src="@/assets/icons/book-open.svg" class="svg-icon is-invert" />
+                  </span>
+                </transition>
+              </div>
+              <div class="nav-item" @click="$emit('tab','config')">
+                <img src="@/assets/icons/more-vertical.svg" class="svg-icon" />
+              </div>
+            </div>
           </div>
-        </transition>
+          <!-- <div class="nav-action" @click="$emit('tab','read')">
+          <transition class="nav-action" name="bounce">
+            <div class="button is-primary is-circle" v-if="listLength>0">
+              <transition name="fade" mode="out-in">
+                <span v-if="tab==='feed'">{{listLength}}</span>
+                <img src="@/assets/icons/book-open.svg" class="svg-icon is-invert" v-else />
+              </transition>
+            </div>
+          </transition>
+          </div>-->
+        </nav>
       </div>
-    </nav>
-  </transition>
+    </transition>
+  </div>
 </template>
 
 <script>
+import Logo from "@/components/Logo.vue";
+
 export default {
   name: "Navbar",
+  components: {
+    Logo,
+  },
   props: {
     tab: { type: String },
-    listLength: { type: Number }
-  }
+    listLength: { type: Number },
+    desktop: Boolean,
+  },
 };
 </script>
 
 <style>
-.slide-enter-active {
+/* .slide-up-enter-active {
   transition: all 0.5s ease;
 }
-.slide-leave-active {
+.slide-up-leave-active {
   transition: all 1s cubic-bezier(1, 0.5, 0.8, 1);
 }
-.slide-enter,
-.slide-leave-to {
+.slide-up-enter {
   transform: translateY(3rem);
 }
+.slide-up-leave-to {
+  transform: translateY(-3rem);
+}
+
+.slide-down-enter-active {
+  transition: all 0.5s ease;
+}
+.slide-down-leave-active {
+  transition: all 1s cubic-bezier(1, 0.5, 0.8, 1);
+}
+.slide-down-enter,
+.slide-down-leave-to {
+  transform: translateY(-3rem);
+} */
 
 .bounce-enter-active {
   animation: bounce-in 0.2s;
@@ -81,6 +150,37 @@ export default {
   background-color: hsl(0, 0%, 100%);
   box-shadow: 0 -0.5em 1em -0.125em rgba(10, 10, 10, 0.1),
     0 0px 0 1px rgba(10, 10, 10, 0.02);
+}
+
+.top-nav {
+  z-index: 30;
+  /* height: 3.5rem; */
+  position: fixed;
+  top: 0;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  background-color: hsl(0, 0%, 100%);
+  box-shadow: 0 0.5em 1em -0.125em rgba(10, 10, 10, 0.1),
+    0 0px 0 1px rgba(10, 10, 10, 0.02);
+}
+
+.top-nav-container {
+  align-items: center;
+  display: flex;
+  justify-content: space-between;
+}
+
+.top-nav-spacer {
+  /* height: 5rem; */
+  width: 100%;
+  z-index: -10;
+  padding-bottom: 2em;
+}
+
+.top-nav-buttons {
+  display: flex;
+  align-items: center;
 }
 .level {
   margin-bottom: 0rem !important;

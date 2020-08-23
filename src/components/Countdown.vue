@@ -1,5 +1,8 @@
 <template>
-  <div class="bottom-countdown" :style="{width: countWidth}"></div>
+  <div>
+    <div v-if="!desktop" class="bottom-countdown" :style="{width: countWidth}"></div>
+    <div v-else class="top-countdown" :style="{width: countWidth}"></div>
+  </div>
 </template>
 
 <script>
@@ -7,8 +10,9 @@ export default {
   name: "Countdown",
   props: {
     now: {
-      type: Number
-    }
+      type: Number,
+    },
+    desktop: Boolean,
   },
   created() {
     setTimeout(() => {
@@ -18,7 +22,7 @@ export default {
   data() {
     return {
       total: this.now,
-      count: 0
+      count: 0,
     };
   },
   computed: {
@@ -28,13 +32,13 @@ export default {
       } else {
         return (this.count / this.total) * 100 + "%";
       }
-    }
+    },
   },
   watch: {
     now() {
       this.count = this.now;
-    }
-  }
+    },
+  },
 };
 </script>
 
@@ -46,6 +50,19 @@ export default {
   height: 3rem;
   position: fixed;
   bottom: 0;
+  align-items: center;
+  display: flex;
+  justify-content: space-between;
+  background-color: $primary;
+
+  transition-duration: 1s;
+}
+
+.top-countdown {
+  z-index: 29;
+  height: 3.8rem;
+  position: fixed;
+  top: 0;
   align-items: center;
   display: flex;
   justify-content: space-between;

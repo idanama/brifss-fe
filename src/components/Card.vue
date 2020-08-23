@@ -354,7 +354,8 @@ export default {
 @import "@/assets/cards.scss";
 
 $cardsTotal: 3;
-$cardsPositionOffset: 55vh * 0.06;
+// $cardsPositionOffset: 55vh * 0.06;
+$cardsPositionOffset: 35px;
 $cardsScaleOffset: 0.08;
 $defaultTranslation: $cardsPositionOffset * $cardsTotal;
 $defaultScale: 1 - ($cardsScaleOffset * $cardsTotal);

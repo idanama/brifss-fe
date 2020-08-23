@@ -5,32 +5,34 @@
         <li
           v-for="(item,index) in list"
           v-bind:key="item._id"
-          class="read-item"
+          class="read-item fluid"
           :class="{rtl : item.source.rtl}"
         >
-          <a
-            v-bind:href="item.link"
-            target="_blank"
-            @click="lastRead=item._id"
-          >{{item.title}} - {{item.source.name}}</a>
-          <div class="read-buttons">
-            <button
-              class="button is-icon read-button"
-              v-if="lastRead===item._id"
-              @click="dismiss(index,1)"
-            >
-              <img src="@/assets/icons/thumbs-down.svg" class="small-icon" />
-            </button>
-            <button
-              class="button is-icon read-button"
-              v-if="lastRead===item._id"
-              @click="dismiss(index,1)"
-            >
-              <img src="@/assets/icons/thumbs-up.svg" class="small-icon" />
-            </button>
-            <button class="button is-icon read-button" @click="dismiss(index,1)">
-              <img src="@/assets/icons/x.svg" class="small-icon" />
-            </button>
+          <div class="fluid-container space-between">
+            <a
+              v-bind:href="item.link"
+              target="_blank"
+              @click="lastRead=item._id"
+            >{{item.title}} - {{item.source.name}}</a>
+            <div class="read-buttons">
+              <button
+                class="button is-icon read-button"
+                v-if="lastRead===item._id"
+                @click="dismiss(index,1)"
+              >
+                <img src="@/assets/icons/thumbs-down.svg" class="small-icon" />
+              </button>
+              <button
+                class="button is-icon read-button"
+                v-if="lastRead===item._id"
+                @click="dismiss(index,1)"
+              >
+                <img src="@/assets/icons/thumbs-up.svg" class="small-icon" />
+              </button>
+              <button class="button is-icon read-button" @click="dismiss(index,1)">
+                <img src="@/assets/icons/x.svg" class="small-icon" />
+              </button>
+            </div>
           </div>
         </li>
         <li v-bind:key="'eof'" v-if="list.length!==0" class="read-item read-bottom">
@@ -47,27 +49,27 @@ export default {
   name: "ReadList",
   props: {
     list: {
-      type: Array
-    }
+      type: Array,
+    },
   },
   data() {
     return {
-      lastRead: -1
+      lastRead: -1,
     };
   },
   watch: {
     lastRead(nowRead, beforeRead) {
-      const remove = this.list.find(item => item._id === beforeRead);
+      const remove = this.list.find((item) => item._id === beforeRead);
       if (remove) {
         this.dismiss(remove._id, 1);
       }
-    }
+    },
   },
   methods: {
     dismiss(index, m) {
       this.list.splice(index, m);
-    }
-  }
+    },
+  },
 };
 </script>
 

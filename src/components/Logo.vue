@@ -15,6 +15,7 @@
 <style>
 .logo {
   font-size: 2.6rem;
+  cursor: pointer;
 }
 .svg-logo {
   display: inline-block;
@@ -25,7 +26,7 @@
   position: relative;
 }
 .logo-fixed {
-  z-index: 10;
+  z-index: 40;
   position: fixed;
   top: 0px;
   left: 0px;

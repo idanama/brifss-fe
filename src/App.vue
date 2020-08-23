@@ -1,6 +1,12 @@
 <template>
   <div id="app" :class="{'no-scroll':(tab==='feed'), 'rtl' : $i18n.locale==='he'}">
-    <Logo :fixed="tab==='feed' || tab === 'read'" :large="tab==='welcome' || tab ==='config'" />
+    <Navbar
+      :desktop="desktop"
+      :tab="tab"
+      :cards="cards"
+      :listLength="list.length"
+      v-on:tab="changeTab"
+    />
     <div v-if="tab==='welcome'">
       <Welcome
         @initApp="changeTab('feed')"
@@ -14,7 +20,7 @@
     </div>
     <div v-else>
       <div v-if="tab==='feed'">
-        <Loader v-if="loading" />
+        <Loader v-if="loading && cards.length<1" />
         <div v-else>
           <div v-if="cards.length>0">
             <CardStack
@@ -24,7 +30,7 @@
               @cardDown="addToLikes({card:cards[0],like:false})"
               :buttonBar="buttonBar"
             />
-            <Countdown :now="cards.length" />
+            <Countdown :desktop="desktop" :now="cards.length" />
           </div>
           <div
             class="content-centered"
@@ -44,15 +50,12 @@
         :locale="locale"
         :buttonBar="buttonBar"
       />
-
-      <Navbar :tab="tab" :cards="cards" :listLength="list.length" v-on:tab="changeTab" />
     </div>
   </div>
 </template>
 
 <script>
 import Navbar from "@/components/Navbar.vue";
-import Logo from "@/components/Logo.vue";
 
 import Welcome from "@/components/Welcome.vue";
 import Config from "@/components/Config.vue";
@@ -69,7 +72,6 @@ export default {
   components: {
     Welcome,
     Navbar,
-    Logo,
     ReadList,
     Countdown,
     CardStack,
@@ -173,9 +175,17 @@ export default {
       loading: 0,
       locale: "en",
       buttonBar: true,
+      windowWidth: 0,
+      windowHeight: 0,
     };
   },
   mounted() {
+    this.$set(this, "windowWidth", window.innerWidth);
+    this.$set(this, "windowHeight", window.innerHeight);
+    window.addEventListener("resize", () => {
+      this.$set(this, "windowWidth", window.innerWidth);
+      this.$set(this, "windowHeight", window.innerHeight);
+    });
     this.initLocalStorage("sources");
     this.initLocalStorage("cards");
     this.initLocalStorage("list");
@@ -221,6 +231,13 @@ export default {
       if (this.tab === "feed") {
         this.getArticles();
       }
+    },
+  },
+  computed: {
+    desktop() {
+      if (this.windowWidth > 700 && this.windowHeight > 500) {
+        return true;
+      } else return false;
     },
   },
   methods: {
