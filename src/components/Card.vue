@@ -289,6 +289,63 @@ export default {
     resetCardPosition() {
       this.interactSetPosition({ x: 0, y: 0, rotation: 0 });
     },
+    enact(direction) {
+      const { interactXThreshold, interactYThreshold } = this.$options.static;
+      const actDelay = 275;
+      switch (direction) {
+        case "up":
+          this.interactSetPosition({
+            x: 0,
+            y: -interactYThreshold - 100,
+            rotation: 0,
+          });
+          this.$set(this, "isInteractDragged", true);
+          this.swipeDirection = "up";
+          setTimeout(() => {
+            this.playCard(CARD_UP);
+          }, actDelay);
+          break;
+        case "down":
+          this.interactSetPosition({
+            x: 0,
+            y: interactYThreshold + 100,
+            rotation: 0,
+          });
+          this.$set(this, "isInteractDragged", true);
+          this.swipeDirection = "down";
+          setTimeout(() => {
+            this.playCard(CARD_DOWN);
+          }, actDelay);
+          break;
+        case "left":
+          this.interactSetPosition({
+            y: 0,
+            x: -interactXThreshold - 100,
+            rotation: 0,
+          });
+          this.$set(this, "isInteractDragged", true);
+          this.swipeDirection = "left";
+          setTimeout(() => {
+            this.playCard(CARD_LEFT);
+          }, actDelay);
+          break;
+        case "right":
+          this.interactSetPosition({
+            y: 0,
+            x: interactXThreshold + 100,
+            rotation: 0,
+          });
+          this.$set(this, "isInteractDragged", true);
+          this.swipeDirection = "right";
+          setTimeout(() => {
+            this.playCard(CARD_RIGHT);
+          }, actDelay);
+          break;
+      }
+
+      // console.log("enact:", direction, this.card.title);
+      // this.playCard(direction);
+    },
   },
 };
 </script>

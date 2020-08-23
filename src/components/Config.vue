@@ -22,6 +22,12 @@
         </div>
       </li>
       <li class="config-item">
+        <div class="config-title">{{$t('config.buttonBar')}}</div>
+        <select>
+          <option>{{$t('actions.yes')}}</option>
+        </select>
+      </li>
+      <li class="config-item">
         <div class="config-title">{{$t('config.username')}}</div>
         <div>{{username}}</div>
       </li>
@@ -53,6 +59,7 @@ export default {
     cards: { type: Array },
     locale: { type: String },
     username: { type: String },
+    buttonBar: Boolean,
   },
   components: {
     Sources,

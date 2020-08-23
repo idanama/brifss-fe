@@ -6,7 +6,9 @@
         "previous": "הקודם",
         "start": "התחלה",
         "continue": "המשך",
-        "skip": "דלג"
+        "skip": "דלג",
+        "yes": "כן",
+        "no": "לא"
     },
     "cards": {
         "noSources": "לא נבחרו מקורות",
@@ -31,7 +33,9 @@
         "name": "עידן אמטי"
     },
     "config": {
-        "username": "שם משתמש"
+        "username": "שם משתמש",
+        "buttonBar": "הראה לחצני פעולה"
+
     },
     "locale": {
         "title": "שפה",

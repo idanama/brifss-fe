@@ -6,7 +6,9 @@
     "previous": "Previous",
     "start": "Start",
     "continue": "Continue",
-    "skip": "Skip"
+    "skip": "Skip",
+    "yes": "Yes",
+    "no": "No"
   },
   "cards": {
     "noSources": "No sources selected",
@@ -31,7 +33,8 @@
     "name": "Idan Amati"
   },
   "config": {
-    "username": "Username"
+    "username": "Username",
+    "buttonBar": "Show action buttons"
   },
   "locale": {
     "title": "Language",

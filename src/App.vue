@@ -22,6 +22,7 @@
               @cardRight="addToList(cards[0])"
               @cardUp="addToLikes({card:cards[0],like:true})"
               @cardDown="addToLikes({card:cards[0],like:false})"
+              :buttonBar="buttonBar"
             />
             <Countdown :now="cards.length" />
           </div>
@@ -41,6 +42,7 @@
         @selectSource="selectSource"
         @changeLocale="saveLocal"
         :locale="locale"
+        :buttonBar="buttonBar"
       />
 
       <Navbar :tab="tab" :cards="cards" :listLength="list.length" v-on:tab="changeTab" />
@@ -170,6 +172,7 @@ export default {
       feedDuration: 24 * (60 * 60 * 1000), // 24 hours
       loading: 0,
       locale: "en",
+      buttonBar: true,
     };
   },
   mounted() {
@@ -181,6 +184,7 @@ export default {
     this.initLocalStorage("likes");
     this.initLocalStorage("dislikes");
     this.initLocalStorage("locale");
+    this.initLocalStorage("buttonBar");
     this.$root.$i18n.locale = this.locale;
     if (this.username !== "") {
       this.tab = "feed";
