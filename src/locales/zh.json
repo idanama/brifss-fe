@@ -1,0 +1,39 @@
+{
+    "brifss": "Brifss",
+    "subtitle": "太长不看 新闻聚合器。",
+    "actions": {
+        "next": "下一个",
+        "previous": "以前",
+        "start": "开始",
+        "continue": "继续",
+        "skip": "跳跃",
+        "yes": "是",
+        "no": "没有"
+    },
+    "cards": {
+        "noSources": "未选择新闻来源",
+        "empty": "无需刷卡"
+    },
+    "sources": {
+        "title": "新闻来源",
+        "select": "选择您的新闻来源:"
+    },
+    "readList": {
+        "dismissAll": "关闭所有",
+        "empty": "没什么好看的"
+    },
+    "about": {
+        "title": "关于",
+        "content": "设计和编码",
+        "name": "Idan Amati"
+    },
+    "config": {
+        "username": "用户名",
+        "buttonBar": "显示动作按钮"
+    },
+    "locale": {
+        "title": "语言",
+        "language": "中文",
+        "code": "zh"
+    }
+}

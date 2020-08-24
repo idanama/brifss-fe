@@ -1,0 +1,39 @@
+{
+    "brifss": "Brifss",
+    "subtitle": "El Demasiado largo Agregador.",
+    "actions": {
+        "next": "Siguiente",
+        "previous": "Anterior",
+        "start": "Comienzo",
+        "continue": "Seguir",
+        "skip": "Omitir",
+        "yes": "Si",
+        "no": "No"
+    },
+    "cards": {
+        "noSources": "No se seleccionaron periódicos",
+        "empty": "Nada que deslizar aquí"
+    },
+    "sources": {
+        "title": "Periódicos",
+        "select": "Seleccione sus periódicos:"
+    },
+    "readList": {
+        "dismissAll": "Descartar todo",
+        "empty": "Nada para leer aquí"
+    },
+    "about": {
+        "title": "Acerca de",
+        "content": "Diseño y codificación por",
+        "name": "Idan Amati"
+    },
+    "config": {
+        "username": "Nombre de usuario",
+        "buttonBar": "Mostrar botones de acción"
+    },
+    "locale": {
+        "title": "Idioma",
+        "language": "Español",
+        "code": "es"
+    }
+}
