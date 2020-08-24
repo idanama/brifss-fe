@@ -58,7 +58,6 @@ export default {
   methods: {
     defaultSources() {
       if (Object.keys(this.selectedSources).length === 0) {
-        console.log(this.sources);
         for (let i in this.sources) {
           if (
             this.sources[i].name === "The Verge" ||
