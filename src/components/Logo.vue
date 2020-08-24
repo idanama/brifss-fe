@@ -1,5 +1,5 @@
 <template>
-  <div class="logo">
+  <div class="logo" :class="{link:!noLink}">
     <div v-if="fixed" class="logo-spacer" :class="{'logo-large':large}">
       <span class="logo-type" :class="{'logo-type-he' : $i18n.locale==='he'}">{{$t('brifss')}}</span>
       <img src="@/assets/logo.svg" class="svg-logo" />
@@ -15,6 +15,8 @@
 <style>
 .logo {
   font-size: 2.6rem;
+}
+.link {
   cursor: pointer;
 }
 .svg-logo {
@@ -45,7 +47,7 @@
   transition-duration: 0.3s;
 }
 .logo-large {
-  font-size: 4rem;
+  font-size: 3.5rem;
   padding: 1rem;
 
   transition-duration: 0.3s;
@@ -66,6 +68,9 @@ export default {
       type: Boolean,
     },
     large: {
+      type: Boolean,
+    },
+    noLink: {
       type: Boolean,
     },
   },

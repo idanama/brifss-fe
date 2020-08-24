@@ -7,6 +7,7 @@
       :listLength="list.length"
       v-on:tab="changeTab"
     />
+
     <div v-if="tab==='welcome'">
       <Welcome
         @initApp="changeTab('feed')"

@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div v-if="tab !== 'welcome'">
     <div v-if="!desktop">
       <Logo
         :desktop="desktop"
@@ -15,6 +15,7 @@
         <div class="nav-item" @click="$emit('tab','config')">
           <img src="@/assets/icons/more-vertical.svg" class="svg-icon" />
         </div>
+
         <div class="nav-action" @click="$emit('tab','read')">
           <transition class="nav-action" name="bounce">
             <div class="button is-primary is-circle" v-if="listLength>0">

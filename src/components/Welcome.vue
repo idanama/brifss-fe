@@ -1,70 +1,31 @@
 <template>
-  <div class="welcome">
-    <div v-if="phase===0">
-      <VueAgile
-        class="slide-container ltr"
-        ref="carousel"
-        :navButtons="false"
-        :infinite="false"
-        :rtl="$i18n.locale==='he'"
-        @after-change="showCurrentSlide($event)"
-      >
-        <section
-          :class="{'rtl' : $i18n.locale==='he'}"
-          class="slide"
-          v-for="(slide,i) in intro"
-          v-bind:key="'slide'+i"
-        >
-          <div class="welcome-image-container">
-            <img class="welcome-image" :src="slide.image" />
-          </div>
-          <div class="welcome-text">
-            <p v-html=" $t(`welcome[${i}]`)"></p>
-          </div>
-        </section>
-      </VueAgile>
-      <div class="buttons">
-        <a
-          @click="$refs.carousel.goToPrev()"
-          :class="{'is-hidden' : currentSlide<1}"
-        >{{$t('actions.previous')}}</a>
-        <div
-          v-if="currentSlide<2"
-          style="display: flex;
-  flex-direction: row;
-  align-content: center;
-  justify-content: space-around;
-  align-items: baseline;"
-        >
+  <div>
+    <div style="padding-bottom:2em;"></div>
+    <div class="welcome">
+      <div v-if="phase===0">
+        <WelcomeAni @start="initiateUser()" />
+        <div class="lang-selector">
           <a
-            @click="initiateUser()"
+            v-for="(lang, i) in langs"
+            :key="`Lang${i}`"
+            @click="$emit('changeLocale', lang.code); $root.$i18n.locale=lang.code"
             style="padding-left:1em;padding-right:1em"
-          >{{$t('actions.skip')}}</a>
-          <div class="button is-primary" @click="$refs.carousel.goToNext()">{{$t('actions.next')}}</div>
+            :value="lang.code"
+          >{{ lang.lang }}</a>
         </div>
-        <div class="button is-primary" v-else @click="initiateUser()">{{$t('actions.start')}}</div>
       </div>
-      <div class="lang-selector subtext">
-        <a
-          v-for="(lang, i) in langs"
-          :key="`Lang${i}`"
-          @click="$emit('changeLocale', lang.code); $root.$i18n.locale=lang.code"
-          style="padding-left:1em;padding-right:1em"
-          :value="lang.code"
-        >{{ lang.lang }}</a>
-      </div>
-    </div>
-    <div v-else-if="phase===1">
+      <!-- <div v-else-if="phase===1"> -->
       <!-- getting cookie -->
-      <div></div>
-    </div>
-    <div v-else>
-      <div class="welcome-text">
-        <div>{{$t('sources.select')}}</div>
-      </div>
-      <Sources :cards="cards" :selectedSources="selectedSources" @selectSource="selectSource" />
-      <div class="buttons">
-        <div @click="$emit('initApp')" class="button is-primary">{{$t('actions.continue')}}</div>
+      <!-- <div></div> -->
+      <!-- </div> -->
+      <div v-else>
+        <div class="welcome-text">
+          <div>{{$t('sources.select')}}</div>
+        </div>
+        <Sources :cards="cards" :selectedSources="selectedSources" @selectSource="selectSource" />
+        <div class="buttons">
+          <div @click="$emit('initApp')" class="button is-primary">{{$t('actions.continue')}}</div>
+        </div>
       </div>
     </div>
   </div>
@@ -72,8 +33,9 @@
 
 <script>
 import Sources from "@/components/Sources.vue";
+import WelcomeAni from "@/components/WelcomeAni.vue";
 
-import { VueAgile } from "vue-agile";
+// import { VueAgile } from "vue-agile";
 
 import * as Cookies from "js-cookie";
 
@@ -87,7 +49,8 @@ export default {
   },
   components: {
     Sources,
-    VueAgile,
+    // VueAgile,
+    WelcomeAni,
   },
   methods: {
     selectSource(source) {
