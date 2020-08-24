@@ -104,6 +104,8 @@ export default {
       langs: [
         { lang: "עברית", code: "he" },
         { lang: "English", code: "en" },
+        { lang: "中文", code: "zh" },
+        { lang: "Español", code: "es" },
       ],
     };
   },
