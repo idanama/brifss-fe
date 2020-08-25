@@ -8,7 +8,8 @@
         "continue": "继续",
         "skip": "跳跃",
         "yes": "是",
-        "no": "没有"
+        "no": "没有",
+        "tapHere": "点击此处开始"
     },
     "cards": {
         "noSources": "未选择新闻来源",

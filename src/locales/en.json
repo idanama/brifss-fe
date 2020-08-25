@@ -8,7 +8,8 @@
     "continue": "Continue",
     "skip": "Skip",
     "yes": "Yes",
-    "no": "No"
+    "no": "No",
+    "tapHere": "Tap here to begin"
   },
   "cards": {
     "noSources": "No sources selected",

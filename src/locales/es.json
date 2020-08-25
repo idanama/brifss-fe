@@ -8,7 +8,9 @@
         "continue": "Seguir",
         "skip": "Omitir",
         "yes": "Si",
-        "no": "No"
+        "no": "No",
+        "tapHere": "Toque aquí para comenzar"
+
     },
     "cards": {
         "noSources": "No se seleccionaron periódicos",

@@ -48,7 +48,7 @@
         </div>
         <div @click="$emit('start')" class="logo-head">
           <Logo :noLink="true" :large="true" />
-          <div class="start">{{$t('actions.start')}}</div>
+          <div class="start">{{$t('actions.tapHere')}}</div>
         </div>
       </div>
     </div>
