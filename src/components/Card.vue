@@ -13,16 +13,24 @@
   >
     <div :class="swipeStyle" class="ltr card-swipe">
       <div class="swipe-action-tip" :class="{'no-display' : swipeDirection !== 'down'}">
-        <img src="@/assets/icons/thumbs-down.svg" class="is-invert" rel="preload" />
+        <div class="swipe-button">
+          <img src="@/assets/icons/thumbs-down.svg" class="is-invert" rel="preload" />
+        </div>
       </div>
       <div class="swipe-action-tip" :class="{'no-display' : swipeDirection !== 'right'}">
-        <img src="@/assets/icons/book-open.svg" class="is-invert" rel="preload" />
+        <div class="swipe-button">
+          <img src="@/assets/icons/book-open.svg" class="is-invert" rel="preload" />
+        </div>
       </div>
       <div class="swipe-action-tip" :class="{'no-display' : swipeDirection !== 'left'}">
-        <img src="@/assets/icons/x.svg" class="is-invert" rel="preload" />
+        <div class="swipe-button">
+          <img src="@/assets/icons/x.svg" class="is-invert" rel="preload" />
+        </div>
       </div>
       <div class="swipe-action-tip" :class="{'no-display' : swipeDirection !== 'up'}">
-        <img src="@/assets/icons/thumbs-up.svg" class="is-invert" rel="preload" />
+        <div class="swipe-button">
+          <img src="@/assets/icons/thumbs-up.svg" class="is-invert" rel="preload" />
+        </div>
       </div>
     </div>
     <transition name="fade">
@@ -393,7 +401,20 @@ $fs-card-title: 1.125em;
 }
 
 .swipe-action-tip {
-  padding: 2rem;
+  margin: 1rem;
+  // background-color: black;
+  // background-image: radial-gradient(black, rgba(255, 255, 255, 1));
+  // border-radius: 100%;
+  // width: 100px;
+  // height: 100px;
+}
+
+.swipe-button {
+  background-color: black;
+
+  border-radius: 100%;
+  padding: 1rem;
+  box-shadow: 0 0 0.5em 0.25em rgba(255, 255, 255, 0.25);
 }
 
 .card-title {
