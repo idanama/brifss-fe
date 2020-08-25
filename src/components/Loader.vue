@@ -25,8 +25,14 @@
 }
 
 .loading-ani {
-  display: flex;
-  justify-content: space-around;
+  // display: flex;
+  // justify-content: space-around;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  margin: auto;
+  margin-top: -32px;
+  margin-left: -42px;
 }
 
 .lds-circle {
@@ -76,6 +82,6 @@
 
 <script>
 export default {
-  name: "Loader"
+  name: "Loader",
 };
 </script>
