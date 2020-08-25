@@ -10,7 +10,7 @@
     <transition appear name="slide-up" v-if="!desktop">
       <nav role="navigation" class="bottom-nav" aria-label="main navigation">
         <div class="nav-item" @click="$emit('tab','feed')">
-          <img src="@/assets/logo.svg" class="svg-icon" />
+          <img src="@/assets/icons/news-brifss.svg" class="svg-icon" />
         </div>
         <div class="nav-item" @click="$emit('tab','config')">
           <img src="@/assets/icons/more-vertical.svg" class="svg-icon" />
@@ -51,6 +51,9 @@
                     <img src="@/assets/icons/book-open.svg" class="svg-icon is-invert" />
                   </span>
                 </transition>
+              </div>
+              <div class="nav-item" @click="$emit('tab','feed')">
+                <img src="@/assets/icons/news-brifss.svg" class="svg-icon" />
               </div>
               <div class="nav-item" @click="$emit('tab','config')">
                 <img src="@/assets/icons/more-vertical.svg" class="svg-icon" />
