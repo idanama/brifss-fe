@@ -21,7 +21,8 @@
     </div>
     <div v-else>
       <div v-if="tab==='feed'">
-        <Loader v-if="loading && cards.length<1" />
+        <Loader :fixed="true" v-if="loading && cards.length<1" />
+
         <div v-else>
           <div v-if="cards.length>0">
             <CardStack

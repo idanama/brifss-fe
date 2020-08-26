@@ -1,6 +1,6 @@
 <template>
   <transition appear name="slide-fade">
-    <div class="loading-ani">
+    <div :class="[fixed ? 'loading-fixed' : 'loading-dynamic']">
       <div class="lds-circle">
         <div></div>
       </div>
@@ -24,15 +24,23 @@
   opacity: 0;
 }
 
-.loading-ani {
-  // display: flex;
-  // justify-content: space-around;
+.loading-dynamic {
+  display: flex;
+  justify-content: space-around;
+  width: 100%;
+  height: 100%;
+  flex-grow: 10;
+  text-align: center;
+}
+
+.loading-fixed {
   position: fixed;
   top: 50%;
   left: 50%;
   margin: auto;
   margin-top: -32px;
   margin-left: -42px;
+  z-index: 50;
 }
 
 .lds-circle {
@@ -83,5 +91,8 @@
 <script>
 export default {
   name: "Loader",
+  props: {
+    fixed: Boolean,
+  },
 };
 </script>
