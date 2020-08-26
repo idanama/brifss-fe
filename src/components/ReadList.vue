@@ -2,17 +2,14 @@
   <div class="read-list">
     <ul>
       <transition-group name="list-complete">
-        <li
-          v-for="(item,index) in list"
-          v-bind:key="item._id"
-          class="read-item fluid"
-          :class="{rtl : item.source.rtl}"
-        >
+        <li v-for="(item,index) in list" v-bind:key="item._id" class="read-item fluid">
           <div class="fluid-container space-between">
             <a
+              :class="[item.source.rtl ? 'rtl' : 'ltr']"
               v-bind:href="item.link"
               target="_blank"
               @click="lastRead=item._id"
+              style="flex-grow:2"
             >{{item.title}} - {{item.source.name}}</a>
             <div class="read-buttons">
               <button
@@ -36,7 +33,9 @@
           </div>
         </li>
         <li v-bind:key="'eof'" v-if="list.length!==0" class="read-item read-bottom">
-          <a @click="dismiss(0,list.length)">{{$t('readList.dismissAll')}}</a>
+          <a class="button is-circle is-primary" @click="dismiss(0,list.length)">
+            <img src="@/assets/icons/x.svg" class="is-invert small-icon" />
+          </a>
         </li>
         <li v-bind:key="'empty'" class="read-item read-bottom" v-else>{{$t('readList.empty')}}</li>
       </transition-group>
@@ -82,13 +81,11 @@ export default {
   display: flex;
   align-items: center;
   flex-direction: row;
+  margin-left: 1em;
+  margin-right: 1em;
 }
 .read-button {
   margin: 0.1rem !important;
-}
-.rtl-align {
-  direction: rtl;
-  text-align: right;
 }
 .read-bottom {
   justify-content: space-around !important;
