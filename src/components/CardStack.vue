@@ -76,10 +76,11 @@ export default {
         x: (rect.left + rect.right) / 2,
         y: (rect.top + rect.bottom) / 2,
       };
+      console.log(mid);
       switch (direction) {
         case "left":
           this.tip = {
-            x: (rect.left > 10, rect.left, 25),
+            x: rect.left > 10 ? rect.left : 25,
             y: mid.y,
             action,
           };
@@ -87,9 +88,9 @@ export default {
         case "right":
           this.tip = {
             x:
-              (rect.right < this.windowWidth - 10,
-              rect.right,
-              this.windowWidth - 25),
+              rect.right < this.windowWidth - 10
+                ? rect.right
+                : this.windowWidth - 25,
             y: mid.y,
             action,
           };
