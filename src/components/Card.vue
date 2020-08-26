@@ -70,8 +70,6 @@
 
 
 <script>
-// import { mapActions } from "vuex";
-
 import interact from "interactjs";
 const CARD_RIGHT = "cardRight";
 const CARD_LEFT = "cardLeft";
@@ -104,7 +102,6 @@ export default {
       required: true,
     },
   },
-
   data() {
     return {
       isShowing: true,
@@ -118,6 +115,7 @@ export default {
       isExtra: false,
       isExtraAnimating: false,
       swipeDirection: "",
+      tip: null,
     };
   },
 
@@ -299,12 +297,13 @@ export default {
     },
     enact(direction) {
       const { interactXThreshold, interactYThreshold } = this.$options.static;
-      const actDelay = 275;
+      const actDelay = 100;
+      const beyondThreshold = 200;
       switch (direction) {
         case "up":
           this.interactSetPosition({
             x: 0,
-            y: -interactYThreshold - 100,
+            y: -interactYThreshold - beyondThreshold,
             rotation: 0,
           });
           this.$set(this, "isInteractDragged", true);
@@ -316,7 +315,7 @@ export default {
         case "down":
           this.interactSetPosition({
             x: 0,
-            y: interactYThreshold + 100,
+            y: interactYThreshold + beyondThreshold,
             rotation: 0,
           });
           this.$set(this, "isInteractDragged", true);
@@ -328,7 +327,7 @@ export default {
         case "left":
           this.interactSetPosition({
             y: 0,
-            x: -interactXThreshold - 100,
+            x: -interactXThreshold - beyondThreshold,
             rotation: 0,
           });
           this.$set(this, "isInteractDragged", true);
@@ -340,7 +339,7 @@ export default {
         case "right":
           this.interactSetPosition({
             y: 0,
-            x: interactXThreshold + 100,
+            x: interactXThreshold + beyondThreshold,
             rotation: 0,
           });
           this.$set(this, "isInteractDragged", true);
@@ -350,9 +349,6 @@ export default {
           }, actDelay);
           break;
       }
-
-      // console.log("enact:", direction, this.card.title);
-      // this.playCard(direction);
     },
   },
 };
@@ -402,19 +398,6 @@ $fs-card-title: 1.125em;
 
 .swipe-action-tip {
   margin: 1rem;
-  // background-color: black;
-  // background-image: radial-gradient(black, rgba(255, 255, 255, 1));
-  // border-radius: 100%;
-  // width: 100px;
-  // height: 100px;
-}
-
-.swipe-button {
-  background-color: black;
-
-  border-radius: 100%;
-  padding: 1rem;
-  box-shadow: 0 0 0.5em 0.25em rgba(255, 255, 255, 0.25);
 }
 
 .card-title {
@@ -585,5 +568,19 @@ $fs-card-title: 1.125em;
       }
     }
   }
+}
+
+.tip-enter {
+  transform: scale(1, 1);
+  opacity: 1;
+}
+
+.tip-leave-active {
+  transition: all 1s ease;
+}
+
+.tip-leave-to {
+  transform: scale(2, 2);
+  opacity: 0;
 }
 </style>

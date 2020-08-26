@@ -27,10 +27,11 @@
           <div v-if="cards.length>0">
             <CardStack
               :cards="cards"
-              @cardRight="addToList(cards[0])"
-              @cardUp="addToLikes({card:cards[0],like:true})"
-              @cardDown="addToLikes({card:cards[0],like:false})"
+              @save="addToList(cards[0])"
+              @like="addToLikes({card:cards[0],like:true})"
+              @dislike="addToLikes({card:cards[0],like:false})"
               :buttonBar="buttonBar"
+              :swipeMap="swipeMap"
             />
             <Countdown :desktop="desktop" :now="cards.length" />
           </div>
@@ -164,6 +165,29 @@ export default {
     ],
   },
   data() {
+    class TwoWayMap {
+      constructor(map) {
+        this.map = map;
+        this.reverseMap = {};
+        for (let key in map) {
+          const value = map[key];
+          this.reverseMap[value] = key;
+        }
+      }
+      get(key) {
+        return this.map[key];
+      }
+      revGet(key) {
+        return this.reverseMap[key];
+      }
+    }
+    const swipeMap = new TwoWayMap({
+      dismiss: "left",
+      save: "right",
+      like: "up",
+      dislike: "down",
+    });
+
     let cards = [];
     return {
       sources: {},
@@ -179,6 +203,7 @@ export default {
       buttonBar: true,
       windowWidth: 0,
       windowHeight: 0,
+      swipeMap,
     };
   },
   mounted() {
