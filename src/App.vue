@@ -32,6 +32,7 @@
               @dislike="addToLikes({card:cards[0],like:false})"
               :buttonBar="buttonBar"
               :swipeMap="swipeMap"
+              :windowWidth="windowWidth"
             />
             <Countdown :desktop="desktop" :now="cards.length" />
           </div>

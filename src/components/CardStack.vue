@@ -41,6 +41,7 @@ export default {
     },
     buttonBar: Boolean,
     swipeMap: Object,
+    windowWidth: Number,
   },
   data() {
     return {
@@ -78,14 +79,17 @@ export default {
       switch (direction) {
         case "left":
           this.tip = {
-            x: rect.left,
+            x: (rect.left > 10, rect.left, 25),
             y: mid.y,
             action,
           };
           break;
         case "right":
           this.tip = {
-            x: rect.right,
+            x:
+              (rect.right < this.windowWidth - 10,
+              rect.right,
+              this.windowWidth - 25),
             y: mid.y,
             action,
           };
