@@ -28,7 +28,7 @@
   position: relative;
 }
 .logo-fixed {
-  z-index: 40;
+  /* z-index: 40; */
   position: fixed;
   top: 0px;
   left: 0px;
