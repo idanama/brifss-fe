@@ -21,7 +21,12 @@
             <div class="button is-primary is-circle" v-if="listLength>0">
               <transition name="fade" mode="out-in">
                 <span v-if="tab==='feed'">{{listLength}}</span>
-                <img src="@/assets/icons/book-open.svg" class="svg-icon is-invert" v-else />
+                <img
+                  @click="$emit('read-first')"
+                  src="@/assets/icons/book-open.svg"
+                  class="svg-icon is-invert"
+                  v-else
+                />
               </transition>
             </div>
           </transition>

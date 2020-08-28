@@ -68,6 +68,11 @@ export default {
     dismiss(index, m) {
       this.list.splice(index, m);
     },
+    readFirst() {
+      const firstItem = this.lastRead === this.list[0]._id ? 1 : 0;
+      window.open(this.list[firstItem].link);
+      this.$set(this, "lastRead", this.list[firstItem]._id);
+    },
   },
 };
 </script>

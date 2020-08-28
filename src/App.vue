@@ -6,6 +6,7 @@
       :cards="cards"
       :listLength="list.length"
       v-on:tab="changeTab"
+      @read-first="$refs.readList.readFirst();"
     />
 
     <div v-if="tab==='welcome'">
@@ -43,7 +44,7 @@
           <div v-else class="content-centered">{{$t('cards.empty')}}</div>
         </div>
       </div>
-      <ReadList v-if="tab==='read'" :list="list" />
+      <ReadList v-if="tab==='read'" ref="readList" :list="list" />
       <Config
         v-if="tab==='config'"
         :cards="cards"
