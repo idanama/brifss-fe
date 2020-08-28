@@ -33,8 +33,8 @@
           </div>
         </li>
         <li v-bind:key="'eof'" v-if="list.length!==0" class="read-item read-bottom">
-          <a class="button is-circle is-primary" @click="dismiss(0,list.length)">
-            <img src="@/assets/icons/x.svg" class="is-invert small-icon" />
+          <a class="button is-circle" @click="dismiss(0,list.length)">
+            <img src="@/assets/icons/x.svg" class="small-icon" />
           </a>
         </li>
         <li v-bind:key="'empty'" class="read-item read-bottom" v-else>{{$t('readList.empty')}}</li>
