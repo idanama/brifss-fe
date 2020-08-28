@@ -8,7 +8,6 @@
       v-on:tab="changeTab"
       @read-first="$refs.readList.readFirst();"
     />
-
     <div v-if="tab==='welcome'">
       <Welcome
         @initApp="changeTab('feed')"
@@ -23,7 +22,6 @@
     <div v-else>
       <div v-if="tab==='feed'">
         <Loader :fixed="true" v-if="loading && cards.length<1" />
-
         <div v-else>
           <div v-if="cards.length>0">
             <CardStack

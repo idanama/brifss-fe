@@ -1,69 +1,81 @@
 <template>
   <div
     v-if="isShowing"
-    ref="interactElement"
     :class="{
       isAnimating: isInteractAnimating,
       isCurrent: isCurrent,
-      'card-is-square': card.isSquare
     }"
-    :style="{transform: transformString}"
-    class="card"
-    v-on:click.prevent="tapCard()"
+    class="card container"
   >
-    <div :class="swipeStyle" class="ltr card-swipe">
-      <div class="swipe-action-tip" :class="{'no-display' : swipeDirection !== 'down'}">
-        <div class="swipe-button">
-          <img src="@/assets/icons/thumbs-down.svg" class="is-invert" rel="preload" />
+    <div
+      class="card"
+      :class="{
+      isAnimating: isInteractAnimating,
+      isCurrent: isCurrent,
+    }"
+      ref="interactElement"
+      :style="{transform: transformString}"
+      v-on:click.prevent="tapCard()"
+    >
+      <div :class="swipeStyle" class="ltr card-swipe">
+        <div class="swipe-action-tip" :class="{'no-display' : swipeDirection !== 'down'}">
+          <div class="swipe-button">
+            <img src="@/assets/icons/thumbs-down.svg" class="is-invert" rel="preload" />
+          </div>
+        </div>
+        <div class="swipe-action-tip" :class="{'no-display' : swipeDirection !== 'right'}">
+          <div class="swipe-button">
+            <img src="@/assets/icons/book-open.svg" class="is-invert" rel="preload" />
+          </div>
+        </div>
+        <div class="swipe-action-tip" :class="{'no-display' : swipeDirection !== 'left'}">
+          <div class="swipe-button">
+            <img src="@/assets/icons/x.svg" class="is-invert" rel="preload" />
+          </div>
+        </div>
+        <div class="swipe-action-tip" :class="{'no-display' : swipeDirection !== 'up'}">
+          <div class="swipe-button">
+            <img src="@/assets/icons/thumbs-up.svg" class="is-invert" rel="preload" />
+          </div>
         </div>
       </div>
-      <div class="swipe-action-tip" :class="{'no-display' : swipeDirection !== 'right'}">
-        <div class="swipe-button">
-          <img src="@/assets/icons/book-open.svg" class="is-invert" rel="preload" />
-        </div>
-      </div>
-      <div class="swipe-action-tip" :class="{'no-display' : swipeDirection !== 'left'}">
-        <div class="swipe-button">
-          <img src="@/assets/icons/x.svg" class="is-invert" rel="preload" />
-        </div>
-      </div>
-      <div class="swipe-action-tip" :class="{'no-display' : swipeDirection !== 'up'}">
-        <div class="swipe-button">
-          <img src="@/assets/icons/thumbs-up.svg" class="is-invert" rel="preload" />
-        </div>
-      </div>
-    </div>
-    <transition name="fade">
-      <div
-        class="card-content"
-        :class="{
+      <transition name="fade">
+        <div
+          class="card-content"
+          :class="{
       rtl: card.source.rtl === true,
       ltr: card.source.rtl !== true,
       isAnimating: isInteractAnimating,
     }"
-        v-if="swipeDirection===''"
-      >
-        <div class="card-title">{{card.title}}</div>
-        <div v-if="isExtra || card.showSnippet" class="card-snippet">{{card.contentSnippet}}</div>
-        <div class="card-subtitle" v-if="card.source">
-          <div class="button is-transparent card-source" @click.stop="cardOpen(card.link)">
-            {{card.source.name}}
-            <img
-              src="@/assets/icons/external-link.svg"
-              class="icon-inline is-invert"
-            />
+          v-if="swipeDirection===''"
+        >
+          <div class="card-title">{{card.title}}</div>
+          <div v-if="isExtra || card.showSnippet" class="card-snippet">{{card.contentSnippet}}</div>
+          <div class="card-subtitle" v-if="card.source">
+            <div class="button is-transparent card-source" @click.stop="cardOpen(card.link)">
+              {{card.source.name}}
+              <img
+                src="@/assets/icons/external-link.svg"
+                class="icon-inline is-invert"
+              />
+            </div>
           </div>
         </div>
+      </transition>
+      <div class="card-background-dim" :class="{isCurrent: isCurrent}"></div>
+      <div class="card-background" :style="{backgroundColor : card.bgc}">
+        <img
+          v-if="card.imageUrl.length > 0"
+          style="height:100%;width:100%;object-fit: cover;"
+          v-bind:src="card.imageUrl[0]"
+        />
       </div>
-    </transition>
-    <div class="card-background-dim" :class="{isCurrent: isCurrent}"></div>
-    <div class="card-background" :style="{backgroundColor : card.bgc}">
-      <img
-        v-if="card.imageUrl.length > 0"
-        style="height:100%;width:100%;object-fit: cover;"
-        v-bind:src="card.imageUrl[0]"
-      />
     </div>
+    <!-- <SwipeTip
+      :rect="$refs.cards.getBoundingClientRect()"
+      :pos="interactPosition"
+      :swipeMap="swipeMap"
+    />-->
   </div>
 </template>
 
@@ -76,7 +88,12 @@ const CARD_LEFT = "cardLeft";
 const CARD_DOWN = "cardDown";
 const CARD_UP = "cardUp";
 
+// import SwipeTip from "@/components/SwipeTip.vue";
+
 export default {
+  components: {
+    // SwipeTip,
+  },
   static: {
     interactMaxRotation: 0, // was 15
     interactOutOfSightXCoordinate: screen.width,
@@ -483,10 +500,10 @@ $fs-card-title: 1.125em;
     pointer-events: auto;
     background-color: rgba(0, 0, 0, 0.5);
   }
-  &.isAnimating {
-    transition: background-color 0.3s $ease-out-back;
-  }
+
+  transition: background-color 0.6s $ease-out-back;
 }
+
 .card {
   @include card();
   @include absolute(0);
@@ -529,16 +546,17 @@ $fs-card-title: 1.125em;
   }
 
   &.isAnimating {
-    transition: transform 0.3s $ease-out-back, color 0.3s $ease-out-back;
+    transition: transform 0.3s $ease-out-back;
   }
 
   // To prevent 'onend' before you let go of your finger on touch devices
   // https://github.com/taye/interact.js/issues/595
   touch-action: none;
-}
 
-.card-is-square {
-  height: 50vh !important;
+  &.container {
+    background-image: none;
+    box-shadow: none;
+  }
 }
 
 .cardTitle {
