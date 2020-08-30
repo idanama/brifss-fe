@@ -36,7 +36,6 @@ export default {
     },
     buttonBar: Boolean,
     swipeMap: Object,
-    windowWidth: Number,
   },
   data() {
     return {

@@ -76,8 +76,8 @@ export default {
   },
   static: {
     interactMaxRotation: 0,
-    interactOutOfSightXCoordinate: screen.width,
-    interactOutOfSightYCoordinate: screen.height,
+    interactOutOfSightXCoordinate: window.screen.width,
+    interactOutOfSightYCoordinate: window.screen.height,
     interactYThreshold: 100,
     interactXThreshold: 100,
 
@@ -141,8 +141,6 @@ export default {
         const { tipXThreshold, tipYThreshold } = this.$options.static;
         let x = this.interactPosition.x + event.dx;
         let y = this.interactPosition.y + event.dy;
-        // console.log("interact pos x", this.interactPosition.x);
-        // console.log("event dx", event.dx);
         if (Math.abs(x) > Math.abs(y)) {
           y = 0;
         } else {
