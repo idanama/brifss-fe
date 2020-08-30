@@ -53,7 +53,7 @@ $diam: 50px;
   height: $diam;
   border-radius: 100%;
   background-color: $primary;
-  box-shadow: 0 0px 10px rgba(255, 255, 255, 0.2);
+  box-shadow: 0 0px 10px rgba(255, 255, 255, 0.4);
 
   z-index: 100;
 
@@ -63,7 +63,7 @@ $diam: 50px;
 }
 
 .swiped {
-  transform: scale(1.5, 1.5);
+  transform: scale(1.25, 1.25);
   opacity: 0.3;
   transition: all 0.2s ease;
 }
