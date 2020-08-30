@@ -17,28 +17,6 @@
       :style="{transform: transformString}"
       v-on:click.prevent="tapCard()"
     >
-      <div :class="swipeStyle" class="ltr card-swipe">
-        <div class="swipe-action-tip" :class="{'no-display' : swipeDirection !== 'down'}">
-          <div class="swipe-button">
-            <img src="@/assets/icons/thumbs-down.svg" class="is-invert" rel="preload" />
-          </div>
-        </div>
-        <div class="swipe-action-tip" :class="{'no-display' : swipeDirection !== 'right'}">
-          <div class="swipe-button">
-            <img src="@/assets/icons/book-open.svg" class="is-invert" rel="preload" />
-          </div>
-        </div>
-        <div class="swipe-action-tip" :class="{'no-display' : swipeDirection !== 'left'}">
-          <div class="swipe-button">
-            <img src="@/assets/icons/x.svg" class="is-invert" rel="preload" />
-          </div>
-        </div>
-        <div class="swipe-action-tip" :class="{'no-display' : swipeDirection !== 'up'}">
-          <div class="swipe-button">
-            <img src="@/assets/icons/thumbs-up.svg" class="is-invert" rel="preload" />
-          </div>
-        </div>
-      </div>
       <transition name="fade">
         <div
           class="card-content"
@@ -47,7 +25,7 @@
       ltr: card.source.rtl !== true,
       isAnimating: isInteractAnimating,
     }"
-          v-if="swipeDirection===''"
+          v-if="!isTip"
         >
           <div class="card-title">{{card.title}}</div>
           <div v-if="isExtra || card.showSnippet" class="card-snippet">{{card.contentSnippet}}</div>
@@ -71,11 +49,13 @@
         />
       </div>
     </div>
-    <!-- <SwipeTip
-      :rect="$refs.cards.getBoundingClientRect()"
+    <SwipeTip
+      v-if="isCurrent"
+      :threshold="[$options.static.interactXThreshold,$options.static.interactYThreshold]"
       :pos="interactPosition"
       :swipeMap="swipeMap"
-    />-->
+      :swiped="isSwiped"
+    />
   </div>
 </template>
 
@@ -88,14 +68,14 @@ const CARD_LEFT = "cardLeft";
 const CARD_DOWN = "cardDown";
 const CARD_UP = "cardUp";
 
-// import SwipeTip from "@/components/SwipeTip.vue";
+import SwipeTip from "@/components/SwipeTip.vue";
 
 export default {
   components: {
-    // SwipeTip,
+    SwipeTip,
   },
   static: {
-    interactMaxRotation: 0, // was 15
+    interactMaxRotation: 0,
     interactOutOfSightXCoordinate: screen.width,
     interactOutOfSightYCoordinate: screen.height,
     interactYThreshold: 100,
@@ -118,6 +98,7 @@ export default {
       type: Boolean,
       required: true,
     },
+    swipeMap: Object,
   },
   data() {
     return {
@@ -131,21 +112,11 @@ export default {
       },
       isExtra: false,
       isExtraAnimating: false,
-      swipeDirection: "",
-      tip: null,
+      isTip: false,
+      isSwiped: false,
     };
   },
-
   computed: {
-    swipeStyle() {
-      return {
-        "is-hidden": this.swipeDirection === "",
-        "card-swipe-up": this.swipeDirection === "up",
-        "card-swipe-down": this.swipeDirection === "down",
-        "card-swipe-left": this.swipeDirection === "left",
-        "card-swipe-right": this.swipeDirection === "right",
-      };
-    },
     transformString() {
       if (!this.isInteractAnimating || this.isInteractDragged) {
         const { x, y, rotation } = this.interactPosition;
@@ -157,7 +128,6 @@ export default {
       return null;
     },
   },
-
   mounted() {
     const element = this.$refs.interactElement;
 
@@ -179,32 +149,11 @@ export default {
           x = 0;
         }
         let rotation = 0;
-        // let rotation = interactMaxRotation * (x / interactXThreshold);
 
-        // if (rotation > interactMaxRotation) rotation = interactMaxRotation;
-        // else if (rotation < -interactMaxRotation)
-        //   rotation = -interactMaxRotation;
-
-        if (this.swipeDirection === "") {
-          if (Math.abs(y) < tipYThreshold && x > tipXThreshold) {
-            this.swipeDirection = "right";
-          } else if (Math.abs(y) < tipYThreshold && x < -tipXThreshold) {
-            this.swipeDirection = "left";
-          } else if (Math.abs(x) < tipXThreshold && y > tipYThreshold) {
-            this.swipeDirection = "down";
-          } else if (Math.abs(x) < tipXThreshold && y < -tipYThreshold) {
-            this.swipeDirection = "up";
-          }
-        }
-
-        if (this.swipeDirection === "right" && x < tipXThreshold) {
-          this.swipeDirection = "";
-        } else if (this.swipeDirection === "left" && x > -tipXThreshold) {
-          this.swipeDirection = "";
-        } else if (this.swipeDirection === "down" && y < tipYThreshold) {
-          this.swipeDirection = "";
-        } else if (this.swipeDirection === "up" && y > -tipYThreshold) {
-          this.swipeDirection = "";
+        if (Math.abs(y) > tipYThreshold || Math.abs(x) > tipXThreshold) {
+          this.isTip = true;
+        } else {
+          this.isTip = false;
         }
 
         this.interactSetPosition({ x, y, rotation });
@@ -224,21 +173,9 @@ export default {
     });
   },
 
-  // beforeDestroy() {
-  //   console.log("destroy!", this.card.title);
-  //   interact(this.$refs.interactElement).unset();
-  // },
-
   methods: {
-    // ...mapActions({
-    //   act: "activity/act"
-    // }),
     cardOpen(link) {
       window.open(link, "_blank");
-      //   this.$store.dispatch("activity/act", {
-      //     _id,
-      //     activity: "read"
-      //   });
     },
     tapCard() {
       if (this.isExtra) {
@@ -273,6 +210,7 @@ export default {
             x: interactOutOfSightXCoordinate,
             rotation: interactMaxRotation,
           });
+          this.isSwiped = true;
           this.$emit(CARD_RIGHT);
           break;
         case CARD_LEFT:
@@ -280,18 +218,21 @@ export default {
             x: -interactOutOfSightXCoordinate,
             rotation: -interactMaxRotation,
           });
+          this.isSwiped = true;
           this.$emit(CARD_LEFT);
           break;
         case CARD_DOWN:
           this.interactSetPosition({
             y: interactOutOfSightYCoordinate,
           });
+          this.isSwiped = true;
           this.$emit(CARD_DOWN);
           break;
         case CARD_UP:
           this.interactSetPosition({
             y: -interactOutOfSightYCoordinate,
           });
+          this.isSwiped = true;
           this.$emit(CARD_UP);
           break;
       }
@@ -323,9 +264,10 @@ export default {
             y: -interactYThreshold - beyondThreshold,
             rotation: 0,
           });
+
           this.$set(this, "isInteractDragged", true);
-          this.swipeDirection = "up";
           setTimeout(() => {
+            this.isSwiped = true;
             this.playCard(CARD_UP);
           }, actDelay);
           break;
@@ -335,9 +277,10 @@ export default {
             y: interactYThreshold + beyondThreshold,
             rotation: 0,
           });
+
           this.$set(this, "isInteractDragged", true);
-          this.swipeDirection = "down";
           setTimeout(() => {
+            this.isSwiped = true;
             this.playCard(CARD_DOWN);
           }, actDelay);
           break;
@@ -347,9 +290,10 @@ export default {
             x: -interactXThreshold - beyondThreshold,
             rotation: 0,
           });
+
           this.$set(this, "isInteractDragged", true);
-          this.swipeDirection = "left";
           setTimeout(() => {
+            this.isSwiped = true;
             this.playCard(CARD_LEFT);
           }, actDelay);
           break;
@@ -359,9 +303,10 @@ export default {
             x: interactXThreshold + beyondThreshold,
             rotation: 0,
           });
+
           this.$set(this, "isInteractDragged", true);
-          this.swipeDirection = "right";
           setTimeout(() => {
+            this.isSwiped = true;
             this.playCard(CARD_RIGHT);
           }, actDelay);
           break;
@@ -381,41 +326,6 @@ $cardsScaleOffset: 0.08;
 $defaultTranslation: $cardsPositionOffset * $cardsTotal;
 $defaultScale: 1 - ($cardsScaleOffset * $cardsTotal);
 $fs-card-title: 1.125em;
-
-.is-hidden {
-  visibility: hidden;
-}
-
-.card-swipe {
-  z-index: 1;
-  position: absolute;
-  width: 100%;
-  height: 100%;
-
-  display: flex;
-  align-items: flex-start;
-}
-
-.card-swipe-up {
-  align-items: center;
-  flex-direction: column-reverse;
-}
-.card-swipe-down {
-  flex-direction: column;
-  align-items: center;
-}
-.card-swipe-left {
-  flex-direction: row-reverse;
-  align-items: center;
-}
-.card-swipe-right {
-  flex-direction: row;
-  align-items: center;
-}
-
-.swipe-action-tip {
-  margin: 1rem;
-}
 
 .card-title {
   font-size: 2rem;
@@ -586,19 +496,5 @@ $fs-card-title: 1.125em;
       }
     }
   }
-}
-
-.tip-enter {
-  transform: scale(1, 1);
-  opacity: 1;
-}
-
-.tip-leave-active {
-  transition: all 1s ease;
-}
-
-.tip-leave-to {
-  transform: scale(2, 2);
-  opacity: 0;
 }
 </style>
