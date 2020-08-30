@@ -27,17 +27,23 @@
     }"
           v-if="!isTip"
         >
-          <div class="card-title">{{card.title}}</div>
-          <div v-if="isExtra || card.showSnippet" class="card-snippet">{{card.contentSnippet}}</div>
-          <div class="card-subtitle" v-if="card.source">
-            <div class="button is-transparent card-source" @click.stop="cardOpen(card.link)">
-              {{card.source.name}}
-              <img
-                src="@/assets/icons/external-link.svg"
-                class="icon-inline is-invert"
-              />
+          <transition-group name="fade">
+            <div class="card-title" key="'title'">{{card.title}}</div>
+            <div
+              v-if="isExtra || card.showSnippet"
+              class="card-snippet"
+              key="snippet"
+            >{{card.contentSnippet}}</div>
+            <div class="card-subtitle" v-if="card.source" key="button">
+              <div class="button is-transparent card-source" @click.stop="cardOpen(card.link)">
+                {{card.source.name}}
+                <img
+                  src="@/assets/icons/external-link.svg"
+                  class="icon-inline is-invert"
+                />
+              </div>
             </div>
-          </div>
+          </transition-group>
         </div>
       </transition>
       <div class="card-background-dim" :class="{isCurrent: isCurrent}"></div>
@@ -358,7 +364,6 @@ $fs-card-title: 1.125em;
   margin-bottom: 1rem;
   font-size: 1.3rem;
   word-wrap: break-word;
-  overflow-y: auto;
   flex-grow: 2;
   // line-height: 2em;
   // max-height: 100%;
@@ -392,6 +397,9 @@ $fs-card-title: 1.125em;
 .card-content {
   width: 100%;
   padding: 1.5rem;
+  overflow-y: auto;
+
+  transition-duration: 2s;
 
   display: flex;
   flex-direction: column;
