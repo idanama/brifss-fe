@@ -27,7 +27,7 @@
     }"
           v-if="!isTip"
         >
-          <transition-group name="fade">
+          <transition-group name="fade" class="card-spacing">
             <div class="card-title" key="'title'">{{card.title}}</div>
             <div
               v-if="isExtra || card.showSnippet"
@@ -398,9 +398,9 @@ $fs-card-title: 1.125em;
   width: 100%;
   padding: 1.5rem;
   overflow-y: auto;
+}
 
-  transition-duration: 2s;
-
+.card-spacing {
   display: flex;
   flex-direction: column;
   justify-content: space-between;

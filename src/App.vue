@@ -31,6 +31,7 @@
               @dislike="addToLikes({card:cards[0],like:false})"
               :buttonBar="buttonBar"
               :swipeMap="swipeMap"
+              ref="cardStack"
             />
             <Countdown :desktop="desktop" :now="cards.length" />
           </div>
@@ -225,6 +226,33 @@ export default {
     if (this.username !== "") {
       this.tab = "feed";
     }
+
+    window.addEventListener("keydown", (e) => {
+      switch (e.code) {
+        case "ArrowLeft":
+          this.playCard("left");
+          break;
+        case "ArrowRight":
+          this.playCard("right");
+          break;
+        case "ArrowUp":
+          this.playCard("up");
+          break;
+        case "ArrowDown":
+          this.playCard("down");
+          break;
+
+        case "KeyR":
+          this.tab = "read";
+          break;
+        case "KeyF":
+          this.tab = "feed";
+          break;
+        case "KeyO":
+          this.tab = "config";
+          break;
+      }
+    });
   },
   watch: {
     // sources(newVal) {
@@ -416,6 +444,9 @@ export default {
       // console.log("add:", addThem);
       this.$set(this, "cards", [...this.cards, ...addThem]);
       // this.cards.push(...addThem);
+    },
+    playCard(direction) {
+      this.$refs.cardStack.enact(null, direction);
     },
   },
 };

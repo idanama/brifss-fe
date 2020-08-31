@@ -56,8 +56,10 @@ export default {
       const action = this.swipeMap.revGet(direction);
       this.$emit(action);
     },
-    enact(action) {
-      const direction = this.swipeMap.get(action);
+    enact(action, direction) {
+      if (!direction) {
+        direction = this.swipeMap.get(action);
+      }
       this.$refs.card0[0].enact(direction);
     },
   },
