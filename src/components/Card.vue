@@ -393,6 +393,10 @@ $fs-card-title: 1.125em;
   width: 100%;
   padding: 1.5rem;
   overflow-y: auto;
+
+  // To prevent 'onend' before you let go of your finger on touch devices
+  // https://github.com/taye/interact.js/issues/595
+  touch-action: none;
 }
 
 .card-spacing {
@@ -458,12 +462,6 @@ $fs-card-title: 1.125em;
 
   &.isAnimating {
     transition: transform 0.3s $ease-out-back;
-  }
-
-  // To prevent 'onend' before you let go of your finger on touch devices
-  // https://github.com/taye/interact.js/issues/595
-  &:not(.container) {
-    touch-action: none;
   }
 
   &.container {
