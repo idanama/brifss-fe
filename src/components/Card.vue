@@ -1,11 +1,7 @@
 <template>
-  <div
-    v-if="isShowing"
-    :class="{
+  <div v-if="isShowing" :class="{
       isCurrent: isCurrent,
-    }"
-    class="card container"
-  >
+    }" class="card container">
     <div
       class="card"
       :class="{
@@ -466,7 +462,9 @@ $fs-card-title: 1.125em;
 
   // To prevent 'onend' before you let go of your finger on touch devices
   // https://github.com/taye/interact.js/issues/595
-  touch-action: none;
+  &:not(.container) {
+    touch-action: none;
+  }
 
   &.container {
     background-image: none;
