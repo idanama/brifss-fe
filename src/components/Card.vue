@@ -2,7 +2,6 @@
   <div
     v-if="isShowing"
     :class="{
-      isAnimating: isInteractAnimating,
       isCurrent: isCurrent,
     }"
     class="card container"
