@@ -22,12 +22,11 @@
           <transition class="nav-action" name="bounce">
             <div class="button is-primary is-circle" v-if="listLength>0">
               <transition name="fade" mode="out-in">
-                <span v-if="tab==='feed'">{{listLength}}</span>
+                <!-- <span v-if="tab==='feed'">{{listLength}}</span> -->
                 <img
                   @click="$emit('read-first')"
                   src="@/assets/icons/book-open.svg"
                   class="svg-icon is-invert"
-                  v-else
                 />
               </transition>
             </div>
