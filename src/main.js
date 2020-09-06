@@ -6,7 +6,8 @@ import {
 } from './vue-apollo'
 import i18n from './i18n'
 import VueMeta from 'vue-meta'
-import ga from './plugins/ga.js'
+import VueGtag from "vue-gtag";
+
 
 Vue.config.productionTip = false
 
@@ -15,7 +16,11 @@ Vue.use(VueMeta, {
   refreshOnceOnNavigation: true
 })
 
-Vue.use(ga)
+Vue.use(VueGtag, {
+  config: {
+    id: "G-00PD1SESM9"
+  }
+});
 
 new Vue({
   apolloProvider: createProvider(),
