@@ -42,5 +42,10 @@
         "title": "שפה",
         "language": "עברית",
         "code": "he"
+    },
+    "app": {
+        "readList": "כתבות",
+        "feed": "כותרות",
+        "more": "עוד"
     }
 }

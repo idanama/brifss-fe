@@ -35,11 +35,18 @@
   },
   "config": {
     "username": "Username",
-    "buttonBar": "Show action buttons"
+    "buttonBar": "Show action buttons",
+    "hotkeys": "Hotkeys",
+    "swipe": "Swipe card"
   },
   "locale": {
     "title": "Language",
     "language": "English",
     "code": "en"
+  },
+  "app": {
+    "readList": "Read",
+    "feed": "Feed",
+    "more": "More"
   }
 }

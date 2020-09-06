@@ -11,9 +11,11 @@
       <nav role="navigation" class="bottom-nav" aria-label="main navigation">
         <div class="nav-item" @click="$emit('tab','feed')">
           <img src="@/assets/icons/news-brifss.svg" class="svg-icon" />
+          <span class="subtext">{{$t('app.feed')}}</span>
         </div>
         <div class="nav-item" @click="$emit('tab','config')">
           <img src="@/assets/icons/more-vertical.svg" class="svg-icon" />
+          <span class="subtext">{{$t('app.more')}}</span>
         </div>
 
         <div class="nav-action" @click="$emit('tab','read')">
@@ -51,6 +53,7 @@
               >
                 <transition name="fade" mode="out-in">
                   <span>
+                    <!-- <span class="subtext">{{$t('app.readList')}}</span> -->
                     <span>{{listLength}}</span>
                     <span style="margin-right:0.5em;margin-left:0.5em;"></span>
                     <img src="@/assets/icons/book-open.svg" class="svg-icon is-invert" />
@@ -59,9 +62,11 @@
               </div>
               <div class="nav-item" @click="$emit('tab','feed')">
                 <img src="@/assets/icons/news-brifss.svg" class="svg-icon" />
+                <span class="subtext">{{$t('app.feed')}}</span>
               </div>
               <div class="nav-item" @click="$emit('tab','config')">
                 <img src="@/assets/icons/more-vertical.svg" class="svg-icon" />
+                <span class="subtext">{{$t('app.more')}}</span>
               </div>
             </div>
           </div>
@@ -204,6 +209,8 @@ export default {
 .nav-item {
   padding: 0.6rem;
   cursor: pointer;
+  display: flex;
+  flex-direction: column;
 }
 
 .nav-action {
